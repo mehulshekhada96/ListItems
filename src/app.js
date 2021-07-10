@@ -45,8 +45,7 @@ app.set("port", process.env.PORT || 5000);
 const mongodb = require("mongodb");
 let mongoose = require("mongoose");
 
-const uri =
-  "mongodb+srv://Tvastra:Sgoc.2030@cluster0.w2dnb.mongodb.net/UserCollection?retryWrites=true&w=majority";
+const uri =`${process.env.MONGO_URI}`;
 
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
