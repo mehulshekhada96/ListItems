@@ -1,0 +1,138 @@
+.container-big{
+    padding: 2rem 0rem;
+}
+.table-container{
+    overflow: auto;
+    height: fit-content;
+    height: 75vh !important;
+    
+}
+
+table, .dealer-table{
+   width: 230rem;
+   
+    thead, tbody{
+        font-weight: 900;
+        
+        border: 1px solid black;
+         th{
+            color: indigo;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            border: 1px solid black;
+            text-align: center;
+
+        }
+    //     .tooltiptext{
+    //         display: block;
+    //         z-index: 1;
+    //         width: 120px;
+    //         background-color: black;
+    //         color: #fff;
+    //         text-align: center;
+    //         border-radius: 6px;
+    //         padding: 5px 0;
+          
+    //         /* Position the tooltip */
+    //         position: absolute;
+            
+           
+        // }
+        td{
+            border: 0.5px dotted black;
+            text-align: center;
+            .edit-delete{
+                display: flex;
+                width: 4rem;
+                justify-content: center;
+                align-items: center;
+                form{
+                    padding: 0 !important;
+                }
+            }
+            .edit{
+                padding: 0;
+                margin:  0 0.2rem;
+                background: none;
+                border: none;
+                &:hover{
+                    cursor: pointer 
+               }
+                
+            }
+            
+            .tooltiptext{
+                display: none;
+            }
+        }
+    }
+    
+}
+.dealer-form{
+    position: relative;
+    bottom: 0;
+    td{
+        padding: 0;
+    }
+    input.form-control{
+        margin: 0;
+        width: 100% !important;
+        padding: 0 !important;
+    }
+}
+.dealer-form-btn{
+    position:absolute;
+  
+    top: 93vh
+   
+}
+.upload{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+    form{
+        width: 50%;
+        display: flex;
+        padding: 0 1rem !important;
+        input{
+            margin: 0
+        }
+    }
+}
+.btn{
+    text-transform: uppercase;
+    font-weight: 900;
+    letter-spacing: .1rem;
+}
+
+.pagination{
+    display: flex;
+    justify-content: center;
+    a{
+        text-decoration: none;
+    }
+    li:not(.dots):not(:first-child):not(:last-child){
+        border: 1px solid indigo;
+        margin: 2px;
+        background-color: rgb(167, 255, 255); 
+      
+    }
+    .active{
+        background-color: black !important;
+        color: blanchedalmond;
+    }
+
+}
+
+#update-data-form{
+    width: 500px;
+    height: 500px;
+  overflow : auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}

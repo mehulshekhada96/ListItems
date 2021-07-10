@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include ('partials/head.ejs') %>
+    <title>Register</title>
+  </head>
+  <body>
+    <div class="container">
+        <header class="header navbar navbar-expand-lg navbar-light bg-light"">
+            <ul class= "container-fluid navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link " aria-current="page" href="/login">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="/register">Register</a>
+                </li>
+            </ul>
+        </header>
+      <form action="register" method="POST" name="registration" class="form-control"  >
+        <h1 class="text-center">Register</h1>
+
+        <!-- <label for="username">User Name:</label> -->
+
+        <input type="text" name="fullname" 
+        class="form-control" placeholder="Enter Your Full Name" value="Mehul">
+
+        <input type="email" name="email" id="email" class="form-control" placeholder="email@example.com" >
+        <input type="tel" name="phone" id="phone" class="form-control" 
+         placeholder="Enter your phone in pattern 9876543210" >
+        
+        <div class="pass_eye">
+            <input type="password" class="form-control" name="password" id="password" placeholder="Enter Password" require>
+            <i class="far fa-eye" id="togglePassword"></i>
+        </div>
+       
+        <button type="submit" class="btn btn-primary">Register</button>
+        
+      </form>
+      <p class="text-center foot">Already Registered? <a href="/login"  class="nav-link space">Login Here</a></p>
+    </div>
+    <script src="/js/formvalidation.js"></script>
+    <script>
+
+
+    </script>
+  </body>
+</html>

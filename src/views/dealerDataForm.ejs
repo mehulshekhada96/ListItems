@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include ('partials/head.ejs') %>
+    <title>Dealer data form</title>
+  </head>
+  <body>
+    <div class="container container-big">
+      <div class="table-container">
+        <table class="table table-secondary dealer-table">
+          <thead class="">
+            <tr>
+              <th></th>
+              <th>Customer Code</th>
+              <th>Company Name</th>
+              <th>Ship to Name</th>
+              <th>Physical Address Line 1</th>
+              <th>City</th>
+              <th>State</th>
+              <th>Zip</th>
+              <th>Area Code</th>
+              <th>Phone Exchange</th>
+              <th>Physical Phone</th>
+              <th>EMAIL_ADDRESS</th>
+              <th>EMAIL_ADDRESS_2</th>
+              <th>Profile Desc</th>
+              <th>Dist</th>
+              <th>Account</th>
+              <th>Display</th>
+              <th>Date</th>
+              <th>EndDate</th>
+              <th>CRM</th>
+              <th></th>
+              <th>Website</th>
+              <th>Lat</th>
+              <th>Long</th>
+            </tr>
+          </thead>
+          <tbody>
+            <form
+              action="dealer-data"
+              method="POST"
+              class="form-control dealer-form"
+            >
+              <tr class="table-primary table-form-row display_none">
+                <td>Enter Your Details:</td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="customerCode"
+                    placeholder="Customer Code"
+                    required
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="company"
+                    placeholder="Company Name"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="shipToName"
+                    placeholder="Ship To Name"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="physicalAddress"
+                    placeholder="Physical Address"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="city"
+                    placeholder="City"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="state"
+                    placeholder="State"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="zip"
+                    placeholder="Zip"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="areaCode"
+                    placeholder="Area Code"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="phoneExchange"
+                    placeholder="Phone Exchange"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="physicalPhone"
+                    placeholder="Physical Phone"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="emailAddress"
+                    placeholder="Email Address"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="emailAddress2"
+                    placeholder="Email Address 2"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="profileDesc"
+                    placeholder="Profile Desc"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="dist"
+                    placeholder="Dist"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="account"
+                    placeholder="Account"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="display"
+                    placeholder="Display"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="date"
+                    placeholder="Date"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="endDate"
+                    placeholder="End Date"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="crm"
+                    placeholder="CRM"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name=""
+                    placeholder=""
+                  />
+                </td>
+
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="website"
+                    placeholder="Website"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="lat"
+                    placeholder="Lattitude"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="form-control"
+                    type="text"
+                    name="long"
+                    placeholder="Longitude"
+                  />
+                </td>
+              </tr>
+              <div class="dealer-form-btn display_none">
+                <button type="submit" class="btn btn-primary">Submit</button>
+                <span class="btn btn-danger" id="cancle">Cancle</span>
+              </div>
+            </form>
+            <!-- <%=dealers.length%>
+            <%=dealers%>
+            <%=Array.isArray(dealers)%> -->
+            <!-- <% let index %> -->
+            <% for(let d of dealers){ %> <%let index = d.id%>
+            <tr class="<%=index%>">
+              <!-- <span class="tooltiptext">Click to edit</span> -->
+              <td>
+                <div class="edit-delete">
+                  <i id="<%=index%>" class="fas fa-edit edit editbtn"></i>
+
+                  <form action="/delete/<%= d.id %>">
+                    <button type="submit" class="edit">
+                      <i class="far fa-trash-alt"></i>
+                    </button>
+                    <!-- <span class='.tooltiptext'>Delete</span> -->
+                  </form>
+                </div>
+              </td>
+              <td><%=d["Customer Code"]%></td>
+              <td><%=d["Company Name"]%></td>
+              <td><%=d["Ship to Name"]%></td>
+              <td><%=d["Physical Address Line 1"]%></td>
+              <td><%=d["City"]%></td>
+              <td><%=d["State"]%></td>
+              <td><%=d[ "Zip"]%></td>
+              <td><%=d["Area Code"]%></td>
+              <td><%=d["Phone Exchange"]%></td>
+              <td><%=d["Physical Phone"]%></td>
+              <td><%=d["EMAIL_ADDRESS"]%></td>
+              <td><%=d["EMAIL_ADDRESS_2"]%></td>
+              <td><%=d["Profile Desc"]%></td>
+              <td><%=d[ "Dist"]%></td>
+              <td><%=d["Account"]%></td>
+              <td><%=d["Display"]%></td>
+              <td><%=d[ "Date"]%></td>
+              <td><%=d["EndDate"]%></td>
+              <td><%=d["CRM"]%></td>
+              <td></td>
+              <td><%=d["Website"]%></td>
+              <td><%=d["Lat"]%></td>
+              <td><%=d["Long"]%></td>
+            </tr>
+            <%}%>
+          </tbody>
+        </table>
+      </div>
+      <!-- Pagination -->
+      <% if (pages > 0) { %>
+      <ul class="pagination text-center">
+        <% if (current == 1) { %>
+        <li class="disabled"><a>First</a></li>
+        <% } else { %>
+        <li><a href="/dealers/1">First</a></li>
+        <% } %> <% var i = (Number(current) > 3 ? Number(current) - 2 : 1) %> <%
+        if (i !== 1) { %>
+        <li class="disabled dots"><a>...</a></li>
+        <% } %> <% for (; i <= (Number(current) + 2) && i <= pages; i++) { %> <%
+        if (i == current) { %>
+        <li class="active"><a><%= i %></a></li>
+        <% } else { %>
+        <li><a href="/dealers/<%= i %>"><%= i %></a></li>
+        <% } %> <% if (i == Number(current) + 2 && i < pages) { %>
+        <li class="disabled dots"><a>...</a></li>
+        <% } %> <% } %> <% if (current == pages) { %>
+        <li class="disabled"><a>Last</a></li>
+        <% } else { %>
+        <li><a href="/dealers/<%= pages %>">Last</a></li>
+        <% } %>
+      </ul>
+      <% } %>
+      <div class="bold text-center">
+        <%if (count > 0) { %>
+        Total Dealers = <%=count %> Found
+        <%}else{%>
+          No Data Found, Add Some Data
+          <%}%>
+      </div>
+        
+      <div class="upload">
+        <button type="menu" class="btn btn-success open-form">Add Data</button>
+        <b> Or Upload CSV File:</b>
+        <form
+          action="/uploadFile"
+          method="POST"
+          enctype="multipart/form-data"
+          class="form-control uploadCsv"
+        >
+          <input
+            type="file"
+            class="form-control"
+            name="csvFile"
+            accept=".csv"
+            required
+          />
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Edit form on click edit button -->
+
+    <div id="edit-form-container">
+      <span class="btn btn-danger display_none" id="cancle1">Cancle</span>
+      <div id="update-data-form"></div>
+    </div>
+  </body>
+  <script>
+    $(document).ready(() => {
+      $(".open-form").click(() => {
+        $(".dealer-form").show();
+        $(".table-form-row").show();
+        $(".open-form").hide();
+        $(".upload").hide();
+        $(".dealer-form-btn").show();
+      });
+      $("#cancle").click(() => {
+        $(".dealer-form").hide();
+        $(".table-form-row").hide();
+        $(".open-form").show();
+        $(".upload").show();
+        $(".dealer-form-btn").hide();
+      });
+      $(".editbtn").click(function (event) {
+        var index = $(event.target).attr("id");
+        console.log(index);
+
+        $.get(`/edit-form/${index}`, function (data, status) {
+          $("#update-data-form").show().html(data);
+          // $(`.${index}`).html(data);
+          //  console.log()
+        });
+       
+        
+      });
+      
+      $("#cancle1").click(() => {
+          $(this).hide();
+          $("#edit-form-container").addClass("display_none");
+        });
+        $(".editbtn").click(() => {
+          $('#cancle1').show();
+          $("#edit-form-container").removeClass("display_none");
+        });
+    });
+
+     $('input[type=text]').keyup(function(){
+        $(this).val($(this).val().toUpperCase());
+    });
+  </script>
+</html>

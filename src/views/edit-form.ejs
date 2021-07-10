@@ -1,0 +1,232 @@
+
+    <form
+    action="update-dealer-data/<%=editDealer.id%>"
+    method="POST"
+    class="form-control"
+  >
+  <!-- <%=editDealer%> -->
+  <!-- <%=editDealer["Customer Code"]%> -->
+ 
+    <tr class="table-primary table-form-row ">
+      <td><h2 class="text-center">Edit Your Details</h2></td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="customerCode"
+          placeholder="Customer Code"
+          value= "<%=editDealer['Customer Code']%>"
+          required
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="company"
+          placeholder="Company Name"
+          value= "<%=editDealer['Company Name']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="shipToName"
+          placeholder="Ship To Name"
+          value= "<%=editDealer['Ship to Name']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="physicalAddress"
+          placeholder="Physical Address"
+          value= "<%=editDealer['Physical Address Line 1']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="city"
+          placeholder="City"
+          value= "<%=editDealer['City']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="state"
+          placeholder="State"
+          value= "<%=editDealer['State']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="zip"
+          placeholder="Zip"
+          value= "<%=editDealer['Zip']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="areaCode"
+          placeholder="Area Code"
+          value= "<%=editDealer['Area Code']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="phoneExchange"
+          placeholder="Phone Exchange"
+          value= "<%=editDealer['Phone Exchange']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="physicalPhone"
+          placeholder="Physical Phone"
+          value= "<%=editDealer['Physical Phone']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="emailAddress"
+          placeholder="Email Address"
+          value= "<%=editDealer['EMAIL_ADDRESS']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="emailAddress2"
+          placeholder="Email Address 2"
+          value= "<%=editDealer['EMAIL_ADDRESS_2']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="profileDesc"
+          placeholder="Profile Desc"
+          value= "<%=editDealer['Profile Desc']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="dist"
+          placeholder="Dist"
+          value= "<%=editDealer['Dist']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="account"
+          placeholder="Account"
+          value= "<%=editDealer['Account']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="display"
+          placeholder="Display"
+          value= "<%=editDealer['Display']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="date"
+          placeholder="Date"
+          value= "<%=editDealer['Date']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="endDate"
+          placeholder="End Date"
+          value= "<%=editDealer['EndDate']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="crm"
+          placeholder="CRM"
+          value= "<%=editDealer['CRM']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name=""
+          placeholder=""
+          value= "<%=editDealer['']%>"
+        />
+      </td>
+
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="website"
+          placeholder="Website"
+          value= "<%=editDealer['Website']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="lat"
+          placeholder="Lattitude"
+          value= "<%=editDealer['Lattitude']%>"
+        />
+      </td>
+      <td>
+        <input
+          class="form-control"
+          type="text"
+          name="long"
+          placeholder="Longitude"
+          value= "<%=editDealer['Longitude']%>"
+        />
+      </td>
+    </tr>
+    <div class="dealer-form-btn1 ">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    
+    </div>
+  </form>
+
+<script>
+   $('input[type=text]').keyup(function(){
+        $(this).val($(this).val().toUpperCase());
+    });
+</script>

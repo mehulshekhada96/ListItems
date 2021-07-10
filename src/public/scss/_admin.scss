@@ -1,0 +1,44 @@
+.editRolePopUp {
+    width: 400px;
+    height: 250px;
+    background-color: aquamarine;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-200px, -125px); 
+    z-index: 100;
+}
+.edit-role{
+    cursor: pointer;
+}
+.btn{
+    width: 8rem;
+    cursor: pointer;
+}
+.bold{
+    font-weight: 900;
+}
+.overlay{
+    background-color:black ;
+    opacity: 0.25;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    
+}
+
+.fa-times-circle{
+    &::before{
+        color: darkred;
+    }
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    cursor: pointer;
+}
+.display_none{
+    display: none;
+}

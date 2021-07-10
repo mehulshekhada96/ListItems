@@ -1,0 +1,246 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap");
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Ubuntu", sans-serif;
+  letter-spacing: 0.03rem;
+}
+
+h1 {
+  font-size: 1.5rem;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 900;
+}
+
+a {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+a:hover {
+  cursor: pointer;
+}
+
+input {
+  margin: 0.5rem auto;
+}
+
+button[type=submit] {
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-weight: 900;
+}
+
+.error {
+  color: red;
+}
+
+i {
+  color: black !important;
+}
+
+@media screen and (min-width: 1024px) {
+  .container {
+    padding: 1rem 10rem;
+  }
+
+  form {
+    padding: 0.5rem 5rem !important;
+  }
+
+  header ul {
+    display: flex !important;
+    justify-content: flex-end !important;
+  }
+}
+.foot {
+  display: flex;
+  justify-content: center;
+}
+
+a {
+  padding: 0 0.5rem !important;
+  font-weight: 900;
+}
+
+.pass_eye {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+.pass_eye input {
+  width: 100% !important;
+}
+.pass_eye i {
+  position: absolute;
+  right: 1rem;
+}
+
+.editRolePopUp {
+  width: 400px;
+  height: 250px;
+  background-color: aquamarine;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-200px, -125px);
+  z-index: 100;
+}
+
+.edit-role {
+  cursor: pointer;
+}
+
+.btn {
+  width: 8rem;
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: 900;
+}
+
+.overlay {
+  background-color: black;
+  opacity: 0.25;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.fa-times-circle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+  cursor: pointer;
+}
+.fa-times-circle::before {
+  color: darkred;
+}
+
+.display_none {
+  display: none;
+}
+
+.container-big {
+  padding: 2rem 0rem;
+}
+
+.table-container {
+  overflow: auto;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  height: 75vh !important;
+}
+
+table, .dealer-table {
+  width: 230rem;
+}
+table thead, table tbody, .dealer-table thead, .dealer-table tbody {
+  font-weight: 900;
+  border: 1px solid black;
+}
+table thead th, table tbody th, .dealer-table thead th, .dealer-table tbody th {
+  color: indigo;
+  padding: 1rem;
+  position: sticky;
+  top: 0;
+  border: 1px solid black;
+  text-align: center;
+}
+table thead td, table tbody td, .dealer-table thead td, .dealer-table tbody td {
+  border: 0.5px dotted black;
+  text-align: center;
+}
+table thead td .edit-delete, table tbody td .edit-delete, .dealer-table thead td .edit-delete, .dealer-table tbody td .edit-delete {
+  display: flex;
+  width: 4rem;
+  justify-content: center;
+  align-items: center;
+}
+table thead td .edit-delete form, table tbody td .edit-delete form, .dealer-table thead td .edit-delete form, .dealer-table tbody td .edit-delete form {
+  padding: 0 !important;
+}
+table thead td .edit, table tbody td .edit, .dealer-table thead td .edit, .dealer-table tbody td .edit {
+  padding: 0;
+  margin: 0 0.2rem;
+  background: none;
+  border: none;
+}
+table thead td .edit:hover, table tbody td .edit:hover, .dealer-table thead td .edit:hover, .dealer-table tbody td .edit:hover {
+  cursor: pointer;
+}
+table thead td .tooltiptext, table tbody td .tooltiptext, .dealer-table thead td .tooltiptext, .dealer-table tbody td .tooltiptext {
+  display: none;
+}
+
+.dealer-form {
+  position: relative;
+  bottom: 0;
+}
+.dealer-form td {
+  padding: 0;
+}
+.dealer-form input.form-control {
+  margin: 0;
+  width: 100% !important;
+  padding: 0 !important;
+}
+
+.dealer-form-btn {
+  position: absolute;
+  top: 93vh;
+}
+
+.upload {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.upload form {
+  width: 50%;
+  display: flex;
+  padding: 0 1rem !important;
+}
+.upload form input {
+  margin: 0;
+}
+
+.btn {
+  text-transform: uppercase;
+  font-weight: 900;
+  letter-spacing: 0.1rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+}
+.pagination a {
+  text-decoration: none;
+}
+.pagination li:not(.dots):not(:first-child):not(:last-child) {
+  border: 1px solid indigo;
+  margin: 2px;
+  background-color: #a7ffff;
+}
+.pagination .active {
+  background-color: black !important;
+  color: blanchedalmond;
+}
+
+#update-data-form {
+  width: 500px;
+  height: 500px;
+  overflow: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+}/*# sourceMappingURL=main.css.map */

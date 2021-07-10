@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include ('partials/head.ejs') %>
+    <title>Admin</title>
+  </head>
+  <body>
+    <div class="container">
+      <table class="table table-primary" id="userTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <td>Email</th>
+            <th>Role</th>
+            <!-- <td>Assign New Role</td> -->
+          </tr>
+        </thead>
+        <% for(let i = 0; i < users.length; i++){ %>
+
+        <tbody>
+          <!-----        adjacent html to call -------->
+
+          <tr>
+            <td><%=users[i].name%></td>
+            <td><%=users[i].phoneNumber%></td>
+            <td><%=users[i].email%></td>
+            <td class="edit-role edit-role<%=i%>" id="<%=users[i].email%>">
+              <%=users[i].role%>
+            </td>
+            <!-- <td><a href='/edit-role>Edit Role</a></td> -->
+          </tr>
+        </tbody>
+        <% }%>
+      </table>
+
+      <div class="editRolePopUp text-center p-3 display_none">
+        <i class="far fa-times-circle cancle"></i>
+        <h2>
+          Are you Sure to Assign role
+          <span class="bold" id="role"> 
+            <!-- <%= users[0].role === 'user' ? 'admin' : 'user' %>  -->
+          </span>
+          to 
+          <br />
+          <span class="bold" id="name">
+
+          </span> ?
+          <!-- <%= users[0].name %> ? -->
+        </h2>
+        <div class="p-2">
+          <button type='submit'  id="submit-role"class="btn btn-success m-2" >
+            Yes
+        </button>
+          <button class="btn btn-danger m-2 cancle">Cancle</button>
+        </div>
+      </div>
+    </div>
+    <div class="overlay display_none"></div>
+  </body>
+
+  <script>
+    $(document).ready(() => {
+      const displayNone = () => {
+        $(".editRolePopUp").addClass("display_none");
+        $(".overlay").addClass("display_none");
+      };
+      $(".edit-role").click((e) => {
+         const role = $(e.target).html();
+         $("#role").html(role.trim() === 'admin' ? 'user' : 'admin')
+         const myname = $(e.target).parent().children().first().html();
+         $("#name").html(myname);
+         const id = $(e.target).attr('id')
+         console.log('id=', id)
+        $('#submit-role').click(()=>{
+
+          $.post(`/change-user-role/${id}`,{newRole : role.trim() === 'admin' ? 'user' : 'admin'}, (data, status)=>{
+          
+          })
+            
+          displayNone();
+          location.reload(true);
+
+        })
+         
+
+         
+
+
+
+
+
+        $(".editRolePopUp").removeClass("display_none");
+        $(".overlay").removeClass("display_none");
+      });
+      
+      $(".cancle").click(displayNone);
+      $(".overlay").click(displayNone);
+
+      // On submit button click request to edit role should be posted 
+      
+        
+    });
+    console.log(`<%=users[0].email%>`)
+  </script>
+</html>
