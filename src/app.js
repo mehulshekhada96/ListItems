@@ -67,7 +67,9 @@ app.get("/register", (req, res) => {
 });
 app.post("/register", auth.signUp);
 app.post("/login", auth.login);
-
+app.get('/logout', (req,res)=>{
+  res.redirect('/login')
+})
 app.post("/dealers/dealer-data", deal.addDealerData);
 
 app.get("/admin", admin.getUsers, (req, res) => {

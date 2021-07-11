@@ -8,16 +8,36 @@ a{
     font-weight: 900;
     
 }
+.navbar{
+    margin: 1rem 0;
+    padding: 0;
+    .nav-link{
+        margin: 0.2rem 0
+    }
+}
 .pass_eye{
     display: flex;
     align-items: center;
     width: 100%;
     position: relative;
+    margin-top: -0.5rem;
     input{
         width: 100% !important;
     }
     i{
         position: absolute;
         right: 1rem;
+    }
+}
+.footer{
+    margin: 0.5rem 0
+}
+
+@media screen and (min-width: 1024px) {
+    .navbar{
+        margin: 1rem -5rem;
+        .nav-link{
+            margin: 1rem 0
+        }
     }
 }
