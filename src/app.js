@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 const compression = require("compression");
 const logger = require("morgan");
 const fs = require("fs");
+const request = require('request')
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const path = require("path");
@@ -45,7 +46,7 @@ app.set("port", process.env.PORT || 5000);
 const mongodb = require("mongodb");
 let mongoose = require("mongoose");
 
-const uri =`${process.env.MONGO_URI}`;
+const uri =`mongodb+srv://Tvastra:Sgoc.2030@cluster0.w2dnb.mongodb.net/UserCollection?retryWrites=true&w=majority`;
 
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -54,26 +55,83 @@ mongoose
   });
 
 // Setting home page routing to login page
-app.get("/", (req, res) => {
-  res.render("login.ejs");
-});
+app.get("/",  auth.redirectLogin, auth.redirectLogin2);
 
 app.get("/login", (req, res) => {
-  res.render("login.ejs");
+  res.render("login.ejs",{error: req.session.error, session: req.session, errorType: req.session.errorType });
 });
 
 app.get("/register", (req, res) => {
-  res.render("register.ejs");
+  res.render("register.ejs",{ session: req.session, error :req.session.error, errorType :req.session.errorType});
 });
-app.post("/register", auth.signUp);
-app.post("/login", auth.login);
+app.post("/register",function(req,res, next){
+  // g-recaptcha-response is the key that browser will generate upon form submit.
+  // if its blank or null means user has not selected the captcha, so return the error.
+  if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+    // return res.json({"responseCode" : 1,"responseDesc" : "Please select captcha"});
+    req.session.error = "Please Fill Recaptcha"
+    req.session.errorType = 'Failure';
+    res.redirect('/register');
+   
+  }
+  // Put your secret key here.
+  var secretKey = "6LcrxY4bAAAAAB5dAc86iH458Um8NiURbotxjzoN";
+  // req.connection.remoteAddress will provide IP address of connected user.
+  var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+  // Hitting GET request to the URL, Google will respond with success or error scenario.
+  request(verificationUrl,function(error,response,body) {
+    body = JSON.parse(body);
+    // Success will be true or false depending upon captcha validation.
+    if(body.success !== undefined && !body.success) {
+      return res.json({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
+    }
+    // res.json({"responseCode" : 0,"responseDesc" : "Sucess"});
+    next()
+  });
+}, auth.signUp);
+// app.post("/login", auth.login);
+
+app.post('/login',function(req,res, next){
+  // g-recaptcha-response is the key that browser will generate upon form submit.
+  // if its blank or null means user has not selected the captcha, so return the error.
+  if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+    // return res.json({"responseCode" : 1,"responseDesc" : "Please select captcha"});
+    req.session.error = "Please Fill Recaptcha"
+    req.session.errorType = 'Failure';
+    res.redirect('/login');
+ 
+  }
+  // Put your secret key here.
+  var secretKey = "6LcrxY4bAAAAAB5dAc86iH458Um8NiURbotxjzoN";
+  // req.connection.remoteAddress will provide IP address of connected user.
+  var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+  // Hitting GET request to the URL, Google will respond with success or error scenario.
+  request(verificationUrl,function(error,response,body) {
+    body = JSON.parse(body);
+    // Success will be true or false depending upon captcha validation.
+    if(body.success !== undefined && !body.success) {
+      return res.json({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
+    }
+    // res.json({"responseCode" : 0,"responseDesc" : "Sucess"});
+    next()
+  });
+}, auth.login);
+
+
+
+
+
+
 app.get('/logout', (req,res)=>{
-  res.redirect('/login')
+  delete req.session.userId;
+	delete req.session.user;
+	req.session.error = '';
+	res.redirect('/login');
 })
 app.post("/dealers/dealer-data", deal.addDealerData);
 
 app.get("/admin", admin.getUsers, (req, res) => {
-  res.render("admin.ejs", { users: res.locals.doc, session: req.session });
+  res.render("admin.ejs", { users: res.locals.doc, session: req.session,email1:req.session.user.email,  name:req.session.user.name, error :req.session.error, errorType :req.session.errorType});
   res.end();
 });
 app.post(`/change-user-role/:id`, admin.changeUserRole )
@@ -140,8 +198,14 @@ app.get('/delete/:id',(req,res,next)=>{
 
 })
 app.get('/edit-form/:index', deal.editDealerForm)
+app.put('/disable-error', auth.clearError);
 
-app.post('/dealers/update-dealer-data/:id', deal.updateData)
+
+
+app.post('/dealers/update-dealer-data/:id', deal.updateData);
+
+app.get('/getAllDealers', deal.getAllDealers )
+
 app.listen(app.get("port"), () => {
   console.log("Application started Listening on ", app.get("port"));
 });

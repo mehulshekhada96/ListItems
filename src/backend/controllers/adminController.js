@@ -3,10 +3,12 @@ const User = require('../models/userModel');
 // const path = require('path');
 
 const getUsers = async (req, res, next) =>{
-    
+   
    let doc =   await User.find();
 //    console.log('users =' , doc);
    res.locals.doc = doc;
+//    req.session.userId = user.id;
+//    req.session.user = user;
    next();
 }
 const changeUserRole = async (req, res, next)=>{

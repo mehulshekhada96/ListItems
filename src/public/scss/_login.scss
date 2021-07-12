@@ -41,3 +41,82 @@ a{
         }
     }
 }
+
+.error_container{
+	z-index: 1000;
+    
+	@media(min-width: 768px){
+		width: 18rem;
+    
+	}
+	&--success{
+		border-left: 4px solid green;
+		color: green;
+        .col--1{
+            .error_container__icon{
+                .fa-check-circle::before{
+                    color: green
+                }
+            }
+        }
+		.col--2{
+			#cancelLogin{
+				color: green;
+			}	
+		}
+	}
+	&--info{
+		border-left: 4px solid blue;
+		color: blue;
+        .col--1{
+            .error_container__icon{
+                .fa-check-circle::before{
+                    color: blue
+                }
+            }
+        }
+		.col--2{
+			#cancelLogin{
+				color: blue;
+			}	
+		}
+	}
+	display: grid;
+	grid-template-columns: 1fr 10fr 1fr;
+	align-items: center;
+	grid-column-gap: 1rem;
+	padding: 1rem 2rem;
+	background-color: white;
+	width: 14rem;
+	height: 5rem;
+	color: red;
+	position: absolute;
+	top: 5rem;
+	right: 1.1rem;
+	border-left: 4px solid red;
+	box-shadow: 0px 0px 2rem rgba(0,0,0,.2);
+	&__icon{
+        align-items: center;
+		font-size: 2rem;
+		.fa-times{
+			font-size: 2rem;
+			color: gray;
+		}
+	}
+	&__title{
+	
+		font-size: 1.3rem;
+	}
+	#cancelLogin{
+		color: red;
+		text-align: center;
+		
+		font-size: 0.85rem;
+	}
+}
+
+.col--1{
+    i {
+        font-size: 1.75rem;
+    }
+} 

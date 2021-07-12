@@ -13,10 +13,9 @@ h1 {
 }
 
 a {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
   width: fit-content;
 }
+
 a:hover {
   cursor: pointer;
 }
@@ -25,7 +24,7 @@ input {
   margin: 0.5rem auto;
 }
 
-button[type=submit] {
+button[type='submit'] {
   text-transform: uppercase;
   letter-spacing: 0.2rem;
   font-weight: 900;
@@ -43,16 +42,19 @@ i {
   .container {
     padding: 1rem 10rem;
   }
-
   form {
     padding: 0.5rem 5rem !important;
   }
-
   header ul {
     display: flex !important;
     justify-content: flex-end !important;
   }
 }
+
+.session-name {
+  display: flex;
+}
+
 .foot {
   display: flex;
   justify-content: center;
@@ -67,6 +69,7 @@ a {
   margin: 1rem 0;
   padding: 0;
 }
+
 .navbar .nav-link {
   margin: 0.2rem 0;
 }
@@ -78,9 +81,11 @@ a {
   position: relative;
   margin-top: -0.5rem;
 }
+
 .pass_eye input {
   width: 100% !important;
 }
+
 .pass_eye i {
   position: absolute;
   right: 1rem;
@@ -98,6 +103,81 @@ a {
     margin: 1rem 0;
   }
 }
+
+.error_container {
+  z-index: 1000;
+  display: grid;
+  grid-template-columns: 1fr 10fr 1fr;
+  align-items: center;
+  grid-column-gap: 1rem;
+  padding: 1rem 2rem;
+  background-color: white;
+  width: 14rem;
+  height: 5rem;
+  color: red;
+  position: absolute;
+  top: 5rem;
+  right: 1.1rem;
+  border-left: 4px solid red;
+  box-shadow: 0px 0px 2rem rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 768px) {
+  .error_container {
+    width: 18rem;
+  }
+}
+
+.error_container--success {
+  border-left: 4px solid green;
+  color: green;
+}
+
+.error_container--success .col--1 .error_container__icon .fa-check-circle::before {
+  color: green;
+}
+
+.error_container--success .col--2 #cancelLogin {
+  color: green;
+}
+
+.error_container--info {
+  border-left: 4px solid blue;
+  color: blue;
+}
+
+.error_container--info .col--1 .error_container__icon .fa-check-circle::before {
+  color: blue;
+}
+
+.error_container--info .col--2 #cancelLogin {
+  color: blue;
+}
+
+.error_container__icon {
+  align-items: center;
+  font-size: 2rem;
+}
+
+.error_container__icon .fa-times {
+  font-size: 2rem;
+  color: gray;
+}
+
+.error_container__title {
+  font-size: 1.3rem;
+}
+
+.error_container #cancelLogin {
+  color: red;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.col--1 i {
+  font-size: 1.75rem;
+}
+
 .editRolePopUp {
   width: 400px;
   height: 250px;
@@ -132,14 +212,15 @@ a {
   top: 0;
 }
 
-.fa-times-circle {
+i.cancle {
   position: absolute;
   top: 0;
   right: 0;
   transform: translate(50%, -50%);
   cursor: pointer;
 }
-.fa-times-circle::before {
+
+i.cancle::before {
   color: darkred;
 }
 
@@ -153,8 +234,6 @@ a {
 
 .table-container {
   overflow: auto;
-  height: -webkit-fit-content;
-  height: -moz-fit-content;
   height: fit-content;
   height: 75vh !important;
 }
@@ -162,10 +241,12 @@ a {
 table, .dealer-table {
   width: 230rem;
 }
+
 table thead, table tbody, .dealer-table thead, .dealer-table tbody {
   font-weight: 900;
   border: 1px solid black;
 }
+
 table thead th, table tbody th, .dealer-table thead th, .dealer-table tbody th {
   color: indigo;
   padding: 1rem;
@@ -174,28 +255,34 @@ table thead th, table tbody th, .dealer-table thead th, .dealer-table tbody th {
   border: 1px solid black;
   text-align: center;
 }
+
 table thead td, table tbody td, .dealer-table thead td, .dealer-table tbody td {
   border: 0.5px dotted black;
   text-align: center;
 }
+
 table thead td .edit-delete, table tbody td .edit-delete, .dealer-table thead td .edit-delete, .dealer-table tbody td .edit-delete {
   display: flex;
   width: 4rem;
   justify-content: center;
   align-items: center;
 }
+
 table thead td .edit-delete form, table tbody td .edit-delete form, .dealer-table thead td .edit-delete form, .dealer-table tbody td .edit-delete form {
   padding: 0 !important;
 }
+
 table thead td .edit, table tbody td .edit, .dealer-table thead td .edit, .dealer-table tbody td .edit {
   padding: 0;
   margin: 0 0.2rem;
   background: none;
   border: none;
 }
+
 table thead td .edit:hover, table tbody td .edit:hover, .dealer-table thead td .edit:hover, .dealer-table tbody td .edit:hover {
   cursor: pointer;
 }
+
 table thead td .tooltiptext, table tbody td .tooltiptext, .dealer-table thead td .tooltiptext, .dealer-table tbody td .tooltiptext {
   display: none;
 }
@@ -204,9 +291,11 @@ table thead td .tooltiptext, table tbody td .tooltiptext, .dealer-table thead td
   position: relative;
   bottom: 0;
 }
+
 .dealer-form td {
   padding: 0;
 }
+
 .dealer-form input.form-control {
   margin: 0;
   width: 100% !important;
@@ -223,11 +312,13 @@ table thead td .tooltiptext, table tbody td .tooltiptext, .dealer-table thead td
   justify-content: space-between;
   align-items: center;
 }
+
 .upload form {
   width: 50%;
   display: flex;
   padding: 0 1rem !important;
 }
+
 .upload form input {
   margin: 0;
 }
@@ -235,21 +326,24 @@ table thead td .tooltiptext, table tbody td .tooltiptext, .dealer-table thead td
 .btn {
   text-transform: uppercase;
   font-weight: 900;
-  letter-spacing: 0.1rem;
+  letter-spacing: .1rem;
 }
 
 .pagination {
   display: flex;
   justify-content: center;
 }
+
 .pagination a {
   text-decoration: none;
 }
+
 .pagination li:not(.dots):not(:first-child):not(:last-child) {
   border: 1px solid indigo;
   margin: 2px;
   background-color: #a7ffff;
 }
+
 .pagination .active {
   background-color: black !important;
   color: blanchedalmond;
@@ -264,4 +358,4 @@ table thead td .tooltiptext, table tbody td .tooltiptext, .dealer-table thead td
   left: 50%;
   transform: translate(-50%, -50%);
   display: none;
-}/*# sourceMappingURL=main.css.map */
+}

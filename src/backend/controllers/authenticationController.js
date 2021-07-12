@@ -13,6 +13,7 @@ const login =  async (req, res, next)=>{
 				req.session.error = 'Login Successful';
 				req.session.userId = user.id;
 				req.session.user = user;
+				// console.log(req.session.user.name)
 				if(req.session.user.role === 'admin') res.redirect('/admin');
 				else res.redirect('/dealers/1');	
 			} else {
@@ -47,10 +48,34 @@ const signUp = async (req, res, next) => {
   res.redirect("/dealers/1");
 };
 
+// Check if user is logged in if he is not then redirect to login page. 
+const redirectLogin = (req, res, next) => {
+	if(!req.session.userId){
+		req.session.errorType = 'Failure';
+		req.session.error = "Please Login First";
+		res.redirect('/login');
+	} else {
+		next();
+	}
+}
+
+const redirectLogin2 = (req, res, next) => {
+	if(!req.session.userId){
+		res.redirect('/login');
+	} else {
+		next();
+	}
+}
+const clearError = (req, res, next) => {
+	req.session.error = "";
+	next();
+}
 
 
 module.exports = {
     signUp : signUp,
     login: login,
-
+	redirectLogin,
+	redirectLogin2,
+    clearError
 }

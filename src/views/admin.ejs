@@ -7,6 +7,7 @@
   <body>
     <div class="container">
       <header class="header navbar navbar-expand-lg navbar-light bg-light"">
+        <h1 class="session-name"> Hello <%=name%> ! Welcome!! </h1>
         <ul class= "container-fluid navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
@@ -14,18 +15,90 @@
           
         </ul>
     </header>
+    
+    <% if(error) {%>
+      <% if(errorType==='Success' ) { %>
+          <div class="error_container error_container--success">
+              <div class="col--1">
+                  <div class="error_container__icon">
+                      <i class="fas fa-check-circle"></i>
+                  </div>
+              </div>
+              <div class="col--2">
+                  <div class="error_container__title heading-3">
+                      Success
+                  </div>
+                  <span class="para-1 error" id="cancelLogin">
+                      <%= error %>
+                          <!-- Valid Only for 60 Seconds. -->
+                  </span>
+              </div>
+              <div class="col--3">
+                  <div class="error_container__icon" id="cross">
+                      <i class="fas fa-times"></i>
+                  </div>
+              </div>
+          </div>
+          <% } %>
+              <% if(errorType==='Failure' ) { %>
+                  <div class="error_container">
+                      <div class="col--1">
+                          <div class="error_container__icon">
+                              <i class="fas fa-times-circle"></i>
+                          </div>
+                      </div>
+                      <div class="col--2">
+                          <div class="error_container__title heading-3">
+                              Failure
+                          </div>
+                          <span class="para-1 error" id="cancelLogin">
+                              <%= error %>
+                                  <!-- Valid Only for 60 Seconds. -->
+                          </span>
+                      </div>
+                      <div class="col--3">
+                          <div class="error_container__icon" id="cross">
+                              <i class="fas fa-times"></i>
+                          </div>
+                      </div>
+                  </div>
+                  <% } %>
+                      <% if(errorType==='Info' ) { %>
+                          <div class="error_container error_container--info">
+                              <div class="col--1">
+                                  <div class="error_container__icon">
+                                      <i class="fas fa-info-circle"></i>
+                                  </div>
+                              </div>
+                              <div class="col--2">
+                                  <div class="error_container__title heading-3">
+                                      Info
+                                  </div>
+                                  <span class="para-1 error" id="cancelLogin">
+                                      <%= error %>
+                                          <!-- Valid Only for 60 Seconds. -->
+                                  </span>
+                              </div>
+                              <div class="col--3">
+                                  <div class="error_container__icon" id="cross">
+                                      <i class="fas fa-times"></i>
+                                  </div>
+                              </div>
+                          </div>
+                          <% } %>
+                              <% } %>
       <table class="table table-primary" id="userTable">
         <thead>
           <tr>
             <th>Name</th>
             <th>Phone Number</th>
-            <td>Email</th>
+            <th>Email</th>
             <th>Role</th>
             <!-- <td>Assign New Role</td> -->
           </tr>
         </thead>
         <% for(let i = 0; i < users.length; i++){ %>
-
+           <% if(users[i].email===email1){continue} %>
         <tbody>
           <!-----        adjacent html to call -------->
 
@@ -111,4 +184,5 @@
     });
     console.log(`<%=users[0].email%>`)
   </script>
+  <script src="/js/index.js"></script>
 </html>
