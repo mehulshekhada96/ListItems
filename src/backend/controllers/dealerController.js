@@ -99,16 +99,16 @@ const getAllDealers = async()=>{
   console.log(allDealers);
   let cities = [], states = [], zips = [], areaCodes =[];
   allDealers.forEach(e=>{
-    if(!cities.includes(e["City"])){
+    if(e["City"] &&!cities.includes(e["City"])){
       cities.push(e["City"]);
     }
-    if(!states.includes(e["State"])){
+    if(e["State"] && !states.includes(e["State"])){
       states.push(e["State"]);
     }
-     if(!zips.includes(e["Zip"])){
+     if(e["Zip"] && !zips.includes(e["Zip"])){
       zips.push(e["Zip"]);
     }
-     if(!areaCodes.includes(e["Area Code"])){
+     if(e["Area Code"] && !areaCodes.includes(e["Area Code"])){
       areaCodes.push(e["Area Code"]);
     }
    

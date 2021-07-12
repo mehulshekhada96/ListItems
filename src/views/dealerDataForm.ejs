@@ -98,29 +98,29 @@
               <th>Company Name</th>
               <th>Ship to Name</th>
               <th>Physical Address Line 1</th>
-              <th>City 
-                <select name="cityFilter" id="cityfilter" class="filter">
+              <th> <span class="filterTag"> City <i class="fas fa-filter"></i> </span>
+                <select name="cityFilter" id="cityfilter" class="filter form-select display_none" size="10" aria-label="size 4 select example" multiple>
                   <%for(let c of cities){%>
                   <option value="<%=c%>"><%=c%></option>
                    <%}%>
                 </select>
               </th>
-              <th>State
-                <select name="stateFilter" id="statefilter" class="filter">
+              <th> <span class="filterTag">State <i class="fas fa-filter"></i></span>
+                <select name="stateFilter" id="statefilter" class="filter form-select display_none" size="10" aria-label="size 4 select example"multiple>
                   <%for(let s of states){%>
                   <option value="<%=s%>"><%=s%></option>
                   <%}%>
                 </select>
               </th>
-              <th>Zip
-                <select name="zipFilter" id="zipfilter" class="filter">
+              <th><span class="filterTag"> Zip <i class="fas fa-filter"></i></span>
+                <select name="zipFilter" id="zipfilter" class="filter form-select display_none" multiple size="10" aria-label="size 3 select example">
                   <%for(let s of zips){%>
                     <option value="<%=s%>"><%=s%></option>
                     <%}%>
                 </select>
               </th>
-              <th>Area Code
-                <select name="areaFilter" id="areafilter" class="filter">
+              <th><span class="filterTag">Area Code <i class="fas fa-filter"></i></span>
+                <select name="areaFilter" id="areafilter" class="filter form-select display_none" multiple size="10" aria-label="size 4 select example">
                   <%for(let s of areaCodes){%>
                     <option value="<%=s%>"><%=s%></option>
                     <%}%>
@@ -487,7 +487,14 @@
           $('#cancle1').show();
           $("#edit-form-container").removeClass("display_none");
         });
+
+        $(".fa-filter").click((e)=>{
+        let select = e.target.parentNode.nextElementSibling
+        $(select).toggleClass("display_none")
+       })
+
     });
+  
 
      $('input[type=text]').keyup(function(){
         $(this).val($(this).val().toUpperCase());

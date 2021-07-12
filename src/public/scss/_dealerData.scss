@@ -4,7 +4,7 @@
 .table-container{
     overflow: auto;
     height: fit-content;
-    height: 75vh !important;
+    height: 70vh !important;
     
 }
 
@@ -22,6 +22,23 @@ table, .dealer-table{
             top: 0;
             border: 1px solid black;
             text-align: center;
+            position: relative;
+            height: 5rem;
+            .filterTag{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                i{
+                    cursor: pointer;
+                    margin-left: 0.5rem;
+                }
+            }
+            .form-select{
+                position: absolute;
+                left: 0;
+                top: 5rem;
+                width: fit-content;
+            }
 
         }
     //     .tooltiptext{
@@ -42,6 +59,7 @@ table, .dealer-table{
         td{
             border: 0.5px dotted black;
             text-align: center;
+            
             .edit-delete{
                 display: flex;
                 width: 4rem;
