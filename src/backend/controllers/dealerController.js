@@ -90,13 +90,14 @@ const updateData = async (req, res, next) => {
       console.log("One updated", data);
     }
   );
+  
   res.redirect("/dealers/1");
   next();
 };
 
 const getAllDealers = async()=>{
   const allDealers = await Dealer.find()
-  console.log(allDealers);
+  // console.log(allDealers);
   let cities = [], states = [], zips = [], areaCodes =[];
   allDealers.forEach(e=>{
     if(e["City"] &&!cities.includes(e["City"])){
@@ -146,7 +147,7 @@ const dealerPagination = async (req, res, next) => {
           current: pageN,
           count: count,
           pages: Math.ceil(count / perPage),
-          name: req.session.user.name,
+          
           session: req.session,
           name: req.session.user.name,
           error: req.session.error,

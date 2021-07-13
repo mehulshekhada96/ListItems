@@ -136,7 +136,7 @@ app.get('/logout', (req,res)=>{
 })
 app.post("/dealers/dealer-data", deal.addDealerData);
 
-app.get("/admin", admin.getUsers, (req, res) => {
+app.get("/admin",auth.redirectLogin, auth.redirectLogin2, admin.getUsers, (req, res) => {
   res.render("admin.ejs", { users: res.locals.doc, session: req.session,email1:req.session.user.email,  name:req.session.user.name, error :req.session.error, errorType :req.session.errorType});
   res.end();
 });
@@ -186,9 +186,9 @@ function importCsvData2MongoDB(filePath) {
   // fs.unlinkSync(filePath);
 }
 // pagination api Get 'page' parameter from browser
-app.get("/dealers/:pageN", deal.dealerPagination);
+app.get("/dealers/:pageN",auth.redirectLogin, auth.redirectLogin2, deal.dealerPagination);
 
-app.get('/delete/:id',(req,res,next)=>{
+app.get('/delete/:id',auth.redirectLogin, auth.redirectLogin2,(req,res,next)=>{
   // const pageNo = req.params.pageNo;
   // res.locals.pageNo = pageNo;
   // console.log(pageNo);
@@ -203,14 +203,14 @@ app.get('/delete/:id',(req,res,next)=>{
   res.redirect(`/dealers/1`);
 
 })
-app.get('/edit-form/:index', deal.editDealerForm)
+app.get('/edit-form/:index',auth.redirectLogin, auth.redirectLogin2, deal.editDealerForm)
 app.put('/disable-error', auth.clearError);
 
 
 
-app.post('/dealers/update-dealer-data/:id', deal.updateData);
+app.post('/dealers/update-dealer-data/:id',auth.redirectLogin, auth.redirectLogin2, deal.updateData);
 
-app.get('/getAllDealers', deal.getAllDealers )
+app.get('/getAllDealers',auth.redirectLogin, auth.redirectLogin2, deal.getAllDealers )
 
 app.listen(app.get("port"), () => {
   console.log("Application started Listening on ", app.get("port"));
