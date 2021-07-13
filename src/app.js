@@ -83,7 +83,10 @@ app.post("/register",function(req,res, next){
     body = JSON.parse(body);
     // Success will be true or false depending upon captcha validation.
     if(body.success !== undefined && !body.success) {
-      return res.json({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
+      // return res.json({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
+      req.session.error = "Failed captcha verification"
+      req.session.errorType = 'Failure';
+      res.render('register.ejs');
     }
     // res.json({"responseCode" : 0,"responseDesc" : "Sucess"});
     next()
@@ -110,7 +113,10 @@ app.post('/login',function(req,res, next){
     body = JSON.parse(body);
     // Success will be true or false depending upon captcha validation.
     if(body.success !== undefined && !body.success) {
-      return res.json({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
+      // return res.json({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
+      req.session.error = "Failed captcha verification"
+      req.session.errorType = 'Failure';
+      res.render('login.ejs');
     }
     // res.json({"responseCode" : 0,"responseDesc" : "Sucess"});
     next()

@@ -151,10 +151,10 @@ const dealerPagination = async (req, res, next) => {
           name: req.session.user.name,
           error: req.session.error,
           errorType: req.session.errorType,
-          cities: dealerFilters.cities,
-          zips: dealerFilters.zips,
-          states: dealerFilters.states,
-          areaCodes : dealerFilters.areaCodes
+          cities: dealerFilters.cities.sort(),
+          zips: dealerFilters.zips.sort(),
+          states: dealerFilters.states.sort(),
+          areaCodes : dealerFilters.areaCodes.sort()
         });
       });
     });

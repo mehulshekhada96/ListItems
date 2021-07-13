@@ -89,6 +89,7 @@
                           </div>
                           <% } %>
                               <% } %>
+      <div class="parent">
       <div class="table-container">
         <table class="table table-secondary dealer-table">
           <thead class="">
@@ -388,8 +389,15 @@
             </tr>
             <%}%>
           </tbody>
+         
         </table>
+       
       </div>
+      <div class="scroll-to-left">
+        <span > <i class="fas fa-chevron-left"></i> <i class="fas fa-circle dot" ></i> </span>
+      </div>
+    </div>
+      
       <!-- Pagination -->
       <% if (pages > 0) { %>
       <ul class="pagination text-center">
@@ -499,6 +507,23 @@
      $('input[type=text]').keyup(function(){
         $(this).val($(this).val().toUpperCase());
     });
+
+
+    let table = document.getElementsByClassName("table-container");
+    let scrollArrow = document.querySelector('.scroll-to-left');
+    scrollArrow.style.display = 'none'
+  table[0].addEventListener('scroll',()=>{
+    console.log('scrolled')
+    if(table[0].scrollLeft > 150){
+      scrollArrow.style.display = 'flex'
+    }else{
+      scrollArrow.style.display = 'none'
+    }
+  })
+  scrollArrow.addEventListener('click',()=>{
+    table[0].scrollTo(0,0); 
+  })
+  // console.log(table[0].getBoundingClientRect())
   </script>
    <script src="/js/index.js"></script>
 </html>
