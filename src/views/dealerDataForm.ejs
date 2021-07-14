@@ -93,6 +93,7 @@
       <div class="table-container">
         <table class="table table-secondary dealer-table">
           <thead class="">
+           <form action="/dealers/filter" method="POST">
             <tr>
               <th></th>
               <th>Customer Code</th>
@@ -143,251 +144,11 @@
               <th>Lat</th>
               <th>Long</th>
             </tr>
+            <button type="submit" class='btn btn-primary' id='filtBtn' >Filter</button>
+          </form>
           </thead>
           <tbody>
-            <form
-              action="dealer-data"
-              method="POST"
-              class="form-control dealer-form"
-            >
-              <tr class="table-primary table-form-row display_none">
-                <td>Enter Your Details:</td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="customerCode"
-                    placeholder="Customer Code"
-                    required
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="company"
-                    placeholder="Company Name"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="shipToName"
-                    placeholder="Ship To Name"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="physicalAddress"
-                    placeholder="Physical Address"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="city"
-                    placeholder="City"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="state"
-                    placeholder="State"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="zip"
-                    placeholder="Zip"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="areaCode"
-                    placeholder="Area Code"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="phoneExchange"
-                    placeholder="Phone Exchange"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="physicalPhone"
-                    placeholder="Physical Phone"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="emailAddress"
-                    placeholder="Email Address"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="emailAddress2"
-                    placeholder="Email Address 2"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="profileDesc"
-                    placeholder="Profile Desc"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="dist"
-                    placeholder="Dist"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="account"
-                    placeholder="Account"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="display"
-                    placeholder="Display"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="date"
-                    placeholder="Date"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="endDate"
-                    placeholder="End Date"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="crm"
-                    placeholder="CRM"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name=""
-                    placeholder=""
-                  />
-                </td>
-
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="website"
-                    placeholder="Website"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="lat"
-                    placeholder="Lattitude"
-                  />
-                </td>
-                <td>
-                  <input
-                    class="form-control"
-                    type="text"
-                    name="long"
-                    placeholder="Longitude"
-                  />
-                </td>
-              </tr>
-              <div class="dealer-form-btn display_none">
-                <button type="submit" class="btn btn-primary">Submit</button>
-                <span class="btn btn-danger" id="cancle">Cancle</span>
-              </div>
-            </form>
-            <!-- <%=dealers.length%>
-            <%=dealers%>
-            <%=Array.isArray(dealers)%> -->
-            <!-- <% let index %> -->
-            <% for(let d of dealers){ %> <%let index = d.id%>
-            <tr class="<%=index%>">
-              <!-- <span class="tooltiptext">Click to edit</span> -->
-              <td>
-                <div class="edit-delete">
-                  <i id="<%=index%>" class="fas fa-edit edit editbtn"></i>
-
-                  <form action="/delete/<%= d.id %>">
-                    <button type="submit" class="edit">
-                      <i class="far fa-trash-alt"></i>
-                    </button>
-                    <!-- <span class='.tooltiptext'>Delete</span> -->
-                  </form>
-                </div>
-              </td>
-              <td><%=d["Customer Code"]%></td>
-              <td><%=d["Company Name"]%></td>
-              <td><%=d["Ship to Name"]%></td>
-              <td><%=d["Physical Address Line 1"]%></td>
-              <td><%=d["City"]%></td>
-              <td><%=d["State"]%></td>
-              <td><%=d[ "Zip"]%></td>
-              <td><%=d["Area Code"]%></td>
-              <td><%=d["Phone Exchange"]%></td>
-              <td><%=d["Physical Phone"]%></td>
-              <td><%=d["EMAIL_ADDRESS"]%></td>
-              <td><%=d["EMAIL_ADDRESS_2"]%></td>
-              <td><%=d["Profile Desc"]%></td>
-              <td><%=d[ "Dist"]%></td>
-              <td><%=d["Account"]%></td>
-              <td><%=d["Display"]%></td>
-              <td><%=d[ "Date"]%></td>
-              <td><%=d["EndDate"]%></td>
-              <td><%=d["CRM"]%></td>
-              <td></td>
-              <td><%=d["Website"]%></td>
-              <td><%=d["Lat"]%></td>
-              <td><%=d["Long"]%></td>
-            </tr>
-            <%}%>
+             <%-include ("./table.ejs")%>
           </tbody>
          
         </table>
@@ -404,21 +165,21 @@
         <% if (current == 1) { %>
         <li class="disabled"><a>First</a></li>
         <% } else { %>
-        <li><a href="/dealers/1">First</a></li>
-        <% } %> <% var i = (Number(current) > 3 ? Number(current) - 2 : 1) %> <%
+        <li><a href="/dealers/filter/1">First</a></li>
+        <% } %> <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %> <%
         if (i !== 1) { %>
         <li class="disabled dots"><a>...</a></li>
-        <% } %> <% for (; i <= (Number(current) + 2) && i <= pages; i++) { %> <%
+        <% } %> <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %> <%
         if (i == current) { %>
         <li class="active"><a><%= i %></a></li>
         <% } else { %>
-        <li><a href="/dealers/<%= i %>"><%= i %></a></li>
-        <% } %> <% if (i == Number(current) + 2 && i < pages) { %>
+        <li><a href="/dealers/filter/<%= i %>"><%= i %></a></li>
+        <% } %> <% if (i == Number(current) + 4 && i < pages) { %>
         <li class="disabled dots"><a>...</a></li>
         <% } %> <% } %> <% if (current == pages) { %>
         <li class="disabled"><a>Last</a></li>
         <% } else { %>
-        <li><a href="/dealers/<%= pages %>">Last</a></li>
+        <li><a href="/dealers/filter/<%= pages %>">Last</a></li>
         <% } %>
       </ul>
       <% } %>
@@ -449,14 +210,17 @@
           <button type="submit" class="btn btn-primary">Upload</button>
         </form>
       </div>
+     
     </div>
 
     <!-- Edit form on click edit button -->
 
     <div id="edit-form-container">
-      <span class="btn btn-danger display_none" id="cancle1">Cancle</span>
+      <span class="display_none" id="cancle1"> <i class="far fa-times-circle cancle"></i></span>
       <div id="update-data-form"></div>
     </div>
+
+    <div class="overlay display_none"></div>
   </body>
   <script>
     $(document).ready(() => {
@@ -466,6 +230,7 @@
         $(".open-form").hide();
         $(".upload").hide();
         $(".dealer-form-btn").show();
+        $(".table-container").css('overflowY','hidden')
       });
       $("#cancle").click(() => {
         $(".dealer-form").hide();
@@ -473,33 +238,43 @@
         $(".open-form").show();
         $(".upload").show();
         $(".dealer-form-btn").hide();
+        $(".table-container").css('overflowY','auto')
       });
+
+      // getting editing form popup, with ID corresponding to edit button's tr tag
       $(".editbtn").click(function (event) {
         var index = $(event.target).attr("id");
+    
         console.log(index);
 
         $.get(`/edit-form/${index}`, function (data, status) {
-          $("#update-data-form").show().html(data);
-          // $(`.${index}`).html(data);
-          //  console.log()
+       
+          $("#update-data-form").html(data);
+           
         });
        
         
       });
       
-      $("#cancle1").click(() => {
+      $("#cancle1, .overlay").click(() => {
           $(this).hide();
-          $("#edit-form-container").addClass("display_none");
+          $("#edit-form-container").hide();
+          $(".overlay").addClass("display_none");
+          $("body").css('overflowY','auto')
         });
         $(".editbtn").click(() => {
           $('#cancle1').show();
-          $("#edit-form-container").removeClass("display_none");
+          $("#edit-form-container").show();
+          $(".overlay").removeClass("display_none");
+          $("body").css('overflowY','hidden')
         });
 
         $(".fa-filter").click((e)=>{
         let select = e.target.parentNode.nextElementSibling
         $(select).toggleClass("display_none")
        })
+
+    
 
     });
   
@@ -524,6 +299,31 @@
     table[0].scrollTo(0,0); 
   })
   // console.log(table[0].getBoundingClientRect())
+  console.log(`<%=current%>`)
   </script>
+<!-- Setting Position of form buttons according to height of the container -->
+<script>
+  const th = document.querySelector("th");
+  console.log(th.offsetHeight)
+  const formHeight = document.querySelectorAll("tr")[0].offsetHeight
+  const btn = document.querySelector(".dealer-form-btn");
+  btn.style.top = `${th.offsetHeight + formHeight + 20}px`
+</script>
+<!-- Seetting height of overlay -->
+<script>
+  const overlay = document.querySelector(".overlay");
+  const bodyHeight = document.body.offsetHeight
+  console.log(bodyHeight);
+  overlay.style.height= bodyHeight;
+</script>
+<!-- getting table body data by ajax  -->
+
+<!-- <script>
+   $.get('/get-dealers',(data,status)=>{
+          $('tbody').html(data)
+          })
+</script> -->
    <script src="/js/index.js"></script>
+
+   
 </html>

@@ -186,7 +186,7 @@ function importCsvData2MongoDB(filePath) {
   // fs.unlinkSync(filePath);
 }
 // pagination api Get 'page' parameter from browser
-app.get("/dealers/:pageN",auth.redirectLogin, auth.redirectLogin2, deal.dealerPagination);
+app.get("/dealers/filter/:pageN",auth.redirectLogin, auth.redirectLogin2, deal.dealerPagination);
 
 app.get('/delete/:id',auth.redirectLogin, auth.redirectLogin2,(req,res,next)=>{
   // const pageNo = req.params.pageNo;
@@ -211,6 +211,11 @@ app.put('/disable-error', auth.clearError);
 app.post('/dealers/update-dealer-data/:id',auth.redirectLogin, auth.redirectLogin2, deal.updateData);
 
 app.get('/getAllDealers',auth.redirectLogin, auth.redirectLogin2, deal.getAllDealers )
+
+app.post('/dealers/filter', deal.dealerPagination)
+  // res.send({cityFilter, zipFilter, stateFilter, areaFilter})
+
+
 
 app.listen(app.get("port"), () => {
   console.log("Application started Listening on ", app.get("port"));

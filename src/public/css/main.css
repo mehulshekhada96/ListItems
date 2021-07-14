@@ -203,8 +203,8 @@ a {
 }
 
 .overlay {
-  background-color: black;
-  opacity: 0.25;
+  background-color: #7a7878;
+  opacity: 0.75;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -430,7 +430,7 @@ table tbody td .tooltiptext,
 
 .dealer-form-btn {
   position: absolute;
-  top: 93vh;
+  z-index: 10;
 }
 
 .upload {
@@ -485,13 +485,34 @@ table tbody td .tooltiptext,
   color: blanchedalmond;
 }
 
-#update-data-form {
+#edit-form-container {
+  position: relative;
   width: 500px;
   height: 500px;
-  overflow: auto;
-  position: absolute;
+  background-color: burlywood;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -125%);
   display: none;
+  z-index: 100;
+}
+
+#update-data-form {
+  height: 500px;
+  width: 100%;
+  overflow: auto;
+  position: absolute;
+}
+
+#cancle1 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+}
+
+#filtBtn {
+  position: absolute;
+  top: -2.5rem;
+  right: 0;
 }

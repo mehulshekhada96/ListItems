@@ -95,8 +95,8 @@ const updateData = async (req, res, next) => {
   next();
 };
 
-const getAllDealers = async()=>{
-  const allDealers = await Dealer.find()
+const getAllDealers = async(req)=>{
+  const allDealers = await Dealer.find(filterQuery(req))
   // console.log(allDealers);
   let cities = [], states = [], zips = [], areaCodes =[];
   allDealers.forEach(e=>{
@@ -118,6 +118,24 @@ const getAllDealers = async()=>{
   return {cities, states, zips, areaCodes}
 }
 
+const filterQuery = (req)=>{
+  let query = {};
+  if(req.body.stateFilter){
+    query.State = req.body.stateFilter
+  }
+  if(req.body.cityFilter){
+    query.City = req.body.cityFilter
+  }
+  if(req.body.zipFilter){
+    query.Zip = req.body.zipFilter
+  }
+  if(req.body.areaFilter){
+    query['Area Code'] = req.body.areaFilter
+  }
+  return query;
+}
+
+
 const dealerFilters = (req, res) => {
   req.session.filters = req.body;
   res.redirect('/dealers/1');
@@ -130,18 +148,21 @@ const dealerSort = (req, res) => {
 
 
 const dealerPagination = async (req, res, next) => {
-
-  const dealerFilters = await getAllDealers();
+  console.log("body=", req.body)
+  console.log("Request Query =", filterQuery(req) )
+  const dealerFilters = await getAllDealers(req);
   var perPage = 8;
   var pageN = req.params.pageN || 1;
 
-  await Dealer.find({})
+  await Dealer.find(filterQuery(req))
     // .sort({"Customer Code": 1})
     .skip(perPage * pageN - perPage)
     .limit(perPage)
     .exec(function (err, dealers) {
-      Dealer.count().exec(function (err, count) {
+      // console.log(dealers)
+      Dealer.find(filterQuery(req)).count().exec(function (err, count) {
         if (err) return next(err);
+        console.log("count = ", count)
         res.render("dealerDataForm", {
           dealers: dealers,
           current: pageN,

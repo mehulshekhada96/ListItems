@@ -1,11 +1,13 @@
 .container-big {
   padding: 2rem 0rem;
+  // position: relative;
 }
 .table-container {
   overflow: auto;
   scroll-behavior: smooth;
   // height: fit-content;
   height: 70vh !important;
+ 
 }
 .parent {
   position: relative;
@@ -162,8 +164,10 @@ table,
 }
 .dealer-form-btn {
   position: absolute;
+  // bottom: 0;
+  // left: 10rem;
+  z-index: 10
 
-  top: 93vh;
 }
 .upload {
   display: flex;
@@ -208,14 +212,35 @@ table,
     color: blanchedalmond;
   }
 }
-
-#update-data-form {
+#edit-form-container{
+  position: relative;
   width: 500px;
   height: 500px;
-  overflow: auto;
-  position: absolute;
+  background-color: burlywood;
+ 
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -125%);
+  
   display: none;
+  z-index: 100;
+}
+#update-data-form {
+  height: 500px;
+  width: 100%;
+  overflow: auto;
+  position: absolute;
+ 
+}
+
+#cancle1{
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+}
+#filtBtn{
+  position: absolute;
+  top: -2.5rem;
+  right: 0
 }
