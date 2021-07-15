@@ -95,8 +95,8 @@ const updateData = async (req, res, next) => {
   next();
 };
 
-const getAllDealers = async(req)=>{
-  const allDealers = await Dealer.find(filterQuery(req))
+const getAllDealers = async()=>{
+  const allDealers = await Dealer.find()
   // console.log(allDealers);
   let cities = [], states = [], zips = [], areaCodes =[];
   allDealers.forEach(e=>{
@@ -148,19 +148,95 @@ const dealerSort = (req, res) => {
 
 
 const dealerPagination = async (req, res, next) => {
-  console.log("body=", req.body)
-  console.log("Request Query =", filterQuery(req) )
-  const dealerFilters = await getAllDealers(req);
+
+  const dealerFilters = await getAllDealers2(req);
   var perPage = 8;
   var pageN = req.params.pageN || 1;
 
-  await Dealer.find(filterQuery(req))
+  await Dealer.find(filterQuery2(req))
+    .sort({"Customer Code": 1})
+    .skip(perPage * pageN - perPage)
+    .limit(perPage)
+    .exec(function (err, dealers) {
+      // console.log(dealers)
+      Dealer.find(filterQuery2(req)).count().exec(function (err, count) {
+        if (err) return next(err);
+        console.log("count = ", count)
+        res.render("dealerDataForm", {
+          dealers: dealers,
+          current: pageN,
+          count: count,
+          pages: Math.ceil(count / perPage),
+          
+          session: req.session,
+          name: req.session.user.name,
+          error: req.session.error,
+          errorType: req.session.errorType,
+          cities: dealerFilters.cities.sort(),
+          zips: dealerFilters.zips.sort(),
+          states: dealerFilters.states.sort(),
+          areaCodes : dealerFilters.areaCodes.sort()
+        });
+      });
+    });
+};
+// extraaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+const getAllDealers2 = async(req)=>{
+  const allDealers = await Dealer.find(filterQuery2(req))
+  // console.log(allDealers);
+  let cities = [], states = [], zips = [], areaCodes =[];
+  allDealers.forEach(e=>{
+    if(e["City"] &&!cities.includes(e["City"])){
+      cities.push(e["City"]);
+    }
+    if(e["State"] && !states.includes(e["State"])){
+      states.push(e["State"]);
+    }
+     if(e["Zip"] && !zips.includes(e["Zip"])){
+      zips.push(e["Zip"]);
+    }
+     if(e["Area Code"] && !areaCodes.includes(e["Area Code"])){
+      areaCodes.push(e["Area Code"]);
+    }
+   
+  })
+  // console.log(cities, states, zips, areaCodes);
+  return {cities, states, zips, areaCodes}
+}
+
+const filterQuery2 = (req)=>{
+  let query = {};
+  if(req.query.stateFilter){
+    query.State = req.query.stateFilter
+  }
+  if(req.query.cityFilter){
+    query.City = req.query.cityFilter
+  }
+  if(req.query.zipFilter){
+    query.Zip = req.query.zipFilter
+  }
+  if(req.query.areaFilter){
+    query['Area Code'] = req.query.areaFilter
+  }
+  return query;
+}
+
+
+
+const dealerPagination2 = async (req, res, next) => {
+  console.log("query=", req.query)
+  console.log("Request Query =", filterQuery2(req) )
+  const dealerFilters = await getAllDealers2(req);
+  var perPage = 8;
+  var pageN = req.query.pageN || 1;
+
+  await Dealer.find(filterQuery2(req))
     // .sort({"Customer Code": 1})
     .skip(perPage * pageN - perPage)
     .limit(perPage)
     .exec(function (err, dealers) {
       // console.log(dealers)
-      Dealer.find(filterQuery(req)).count().exec(function (err, count) {
+      Dealer.find(filterQuery2(req)).count().exec(function (err, count) {
         if (err) return next(err);
         console.log("count = ", count)
         res.render("dealerDataForm", {
@@ -188,5 +264,6 @@ module.exports = {
   editDealerForm,
   updateData,
   dealerPagination,
+  dealerPagination2,
   getAllDealers
 };

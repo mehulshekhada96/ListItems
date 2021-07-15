@@ -93,13 +93,22 @@
       <div class="table-container">
         <table class="table table-secondary dealer-table">
           <thead class="">
-           <form action="/dealers/filter" method="POST">
+            <form action="/dealers/filter" method="GET">
             <tr>
               <th></th>
-              <th>Customer Code</th>
+              <th>
+                 <span class="filterTag"> Customer Code <i class="fas fa-sort"></i> </span>
+                <select name="sortby" id="sortby" class="sort form-sort" size="10" aria-label="size 4 select example" multiple>
+                  
+                  <option value='customerCode+1'>Customer Code (A-Z)</option>
+                  <option value='customerCode-1'>Customer Code (Z-A)</option>
+                   
+                </select>
+              </th>
               <th>Company Name</th>
               <th>Ship to Name</th>
               <th>Physical Address Line 1</th>
+              
               <th> <span class="filterTag"> City <i class="fas fa-filter"></i> </span>
                 <select name="cityFilter" id="cityfilter" class="filter form-select display_none" size="10" aria-label="size 4 select example" multiple>
                   <%for(let c of cities){%>
@@ -165,7 +174,7 @@
         <% if (current == 1) { %>
         <li class="disabled"><a>First</a></li>
         <% } else { %>
-        <li><a href="/dealers/filter/1">First</a></li>
+        <li><a class="page1" href="/dealers/filter/1">First</a></li>
         <% } %> <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %> <%
         if (i !== 1) { %>
         <li class="disabled dots"><a>...</a></li>
@@ -173,13 +182,13 @@
         if (i == current) { %>
         <li class="active"><a><%= i %></a></li>
         <% } else { %>
-        <li><a href="/dealers/filter/<%= i %>"><%= i %></a></li>
+        <li><a class="page<%=i%>" href="/dealers/filter/<%= i %>"><%= i %></a></li>
         <% } %> <% if (i == Number(current) + 4 && i < pages) { %>
         <li class="disabled dots"><a>...</a></li>
         <% } %> <% } %> <% if (current == pages) { %>
         <li class="disabled"><a>Last</a></li>
         <% } else { %>
-        <li><a href="/dealers/filter/<%= pages %>">Last</a></li>
+        <li><a class="page<%=pages%>" href="/dealers/filter/<%= pages %>">Last</a></li>
         <% } %>
       </ul>
       <% } %>
@@ -223,7 +232,27 @@
     <div class="overlay display_none"></div>
   </body>
   <script>
+  const curUrl = window.location.href;
+  let n = 1, part1, part2
+  if(curUrl.includes('?')){
+   part1 = curUrl.slice(0, curUrl.indexOf('?')).split('/').splice(0,5).join('/');;
+   part2 = curUrl.slice(curUrl.indexOf('?'))
+  console.log(part1+'/'+n+ part2)
+  }
+  else{
+   part1 = curUrl.split('/').splice(0,5).join('/');
+   part2 = '';
+   console.log(part1+'/'+n+ part2)
+  }
     $(document).ready(() => {
+      //changing href values of a tags
+      for(let i = 1; i<= Number('<%=pages%>'); i++){
+         $(`.page${i}`).attr('href',part1+'/'+i+part2)
+        console.log( $(`.page${i}`).attr('href'))
+      }
+
+
+
       $(".open-form").click(() => {
         $(".dealer-form").show();
         $(".table-form-row").show();

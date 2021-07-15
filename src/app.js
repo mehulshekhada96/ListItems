@@ -215,7 +215,10 @@ app.get('/getAllDealers',auth.redirectLogin, auth.redirectLogin2, deal.getAllDea
 app.post('/dealers/filter', deal.dealerPagination)
   // res.send({cityFilter, zipFilter, stateFilter, areaFilter})
 
-
+app.get('/dealers/filter/',
+ deal.dealerPagination2
+// (req,res)=>res.json(req.query)
+ )
 
 app.listen(app.get("port"), () => {
   console.log("Application started Listening on ", app.get("port"));
