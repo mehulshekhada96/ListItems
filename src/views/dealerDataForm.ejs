@@ -93,45 +93,57 @@
       <div class="table-container">
         <table class="table table-secondary dealer-table">
           <thead class="">
-            <form action="/dealers/filter" method="GET">
+            
             <tr>
               <th></th>
+              <form action="/dealers"  method="GET" id='filterForm' >
+                <input type="hidden" name="sort" id="sortInput" value="custCode">
               <th>
-                 <span class="filterTag"> Customer Code <i class="fas fa-sort"></i> </span>
-                <select name="sortby" id="sortby" class="sort form-sort" size="10" aria-label="size 4 select example" multiple>
-                  
-                  <option value='customerCode+1'>Customer Code (A-Z)</option>
-                  <option value='customerCode-1'>Customer Code (Z-A)</option>
-                   
-                </select>
+                 <span class="filterTag"> Customer Code
+                  <i onclick='sortby("custCode")' id="custCode" class="fas fa-sort-alpha-down"></i>
+                  <i onclick='sortby("-custCode")' id="-custCode"  class="fas fa-sort-alpha-up"></i>
+                  </span>
+                 
               </th>
-              <th>Company Name</th>
-              <th>Ship to Name</th>
+              <th>
+                <span class="filterTag"> Company Name 
+                  <i onclick='sortby("companyName")' id="companyName" class="fas fa-sort-alpha-down"></i>
+                  <i onclick='sortby("-companyName")' id="-companyName" class="fas fa-sort-alpha-up"></i>
+                </span>
+                
+              </th>
+              <th>
+                <span class="filterTag">Ship to Name
+                  <i onclick='sortby("shipToName")' id="shipToName"  class="fas fa-sort-alpha-down"></i>
+                  <i onclick='sortby("-shipToName")' id="-shipToName" class="fas fa-sort-alpha-up"></i>
+               </span>
+              </th>
+          
               <th>Physical Address Line 1</th>
-              
+         
               <th> <span class="filterTag"> City <i class="fas fa-filter"></i> </span>
-                <select name="cityFilter" id="cityfilter" class="filter form-select display_none" size="10" aria-label="size 4 select example" multiple>
+                <select onchange="this.form.submit()" name="cityFilter" id="cityfilter" class="filter form-select display_none" size="10" aria-label="size 4 select example" multiple>
                   <%for(let c of cities){%>
                   <option value="<%=c%>"><%=c%></option>
                    <%}%>
                 </select>
               </th>
               <th> <span class="filterTag">State <i class="fas fa-filter"></i></span>
-                <select name="stateFilter" id="statefilter" class="filter form-select display_none" size="10" aria-label="size 4 select example"multiple>
+                <select onchange="this.form.submit()" name="stateFilter" id="statefilter" class="filter form-select display_none" size="10" aria-label="size 4 select example"multiple>
                   <%for(let s of states){%>
                   <option value="<%=s%>"><%=s%></option>
                   <%}%>
                 </select>
               </th>
               <th><span class="filterTag"> Zip <i class="fas fa-filter"></i></span>
-                <select name="zipFilter" id="zipfilter" class="filter form-select display_none" multiple size="10" aria-label="size 3 select example">
+                <select  onchange="this.form.submit()" name="zipFilter" id="zipfilter" class="filter form-select display_none" multiple size="10" aria-label="size 3 select example">
                   <%for(let s of zips){%>
                     <option value="<%=s%>"><%=s%></option>
                     <%}%>
                 </select>
               </th>
               <th><span class="filterTag">Area Code <i class="fas fa-filter"></i></span>
-                <select name="areaFilter" id="areafilter" class="filter form-select display_none" multiple size="10" aria-label="size 4 select example">
+                <select onchange="this.form.submit()" name="areaFilter" id="areafilter" class="filter form-select display_none" multiple size="10" aria-label="size 4 select example">
                   <%for(let s of areaCodes){%>
                     <option value="<%=s%>"><%=s%></option>
                     <%}%>
@@ -153,7 +165,7 @@
               <th>Lat</th>
               <th>Long</th>
             </tr>
-            <button type="submit" class='btn btn-primary' id='filtBtn' >Filter</button>
+            <button type="submit" class=' btn-primary' id='filtBtn' >No Filter</button>
           </form>
           </thead>
           <tbody>
@@ -174,7 +186,7 @@
         <% if (current == 1) { %>
         <li class="disabled"><a>First</a></li>
         <% } else { %>
-        <li><a class="page1" href="/dealers/filter/1">First</a></li>
+        <li><a class="page1" href="/dealers/1">First</a></li>
         <% } %> <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %> <%
         if (i !== 1) { %>
         <li class="disabled dots"><a>...</a></li>
@@ -182,13 +194,13 @@
         if (i == current) { %>
         <li class="active"><a><%= i %></a></li>
         <% } else { %>
-        <li><a class="page<%=i%>" href="/dealers/filter/<%= i %>"><%= i %></a></li>
+        <li><a class="page<%=i%>" href="/dealers/<%= i %>"><%= i %></a></li>
         <% } %> <% if (i == Number(current) + 4 && i < pages) { %>
         <li class="disabled dots"><a>...</a></li>
         <% } %> <% } %> <% if (current == pages) { %>
         <li class="disabled"><a>Last</a></li>
         <% } else { %>
-        <li><a class="page<%=pages%>" href="/dealers/filter/<%= pages %>">Last</a></li>
+        <li><a class="page<%=pages%>" href="/dealers/<%= pages %>">Last</a></li>
         <% } %>
       </ul>
       <% } %>
@@ -199,7 +211,15 @@
           No Data Found, Add Some Data
           <%}%>
       </div>
-        
+     <div class = 'searchNearBy'>
+       <form action="/dealers" method='POST'>
+        <label for="pincode"> Search for Nearest Dealers, Enter Pincode</label>
+         <input type="text" name='pincode' id="pincode" required >
+         <label for="raddi"> Enter Radius of Nearby Distance in KM</label>
+         <input type="text" name='radius' id="" required >
+         <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+     </div>   
       <div class="upload">
         <button type="menu" class="btn btn-success open-form">Add Data</button>
         <b> Or Upload CSV File:</b>
@@ -230,28 +250,57 @@
     </div>
 
     <div class="overlay display_none"></div>
-  </body>
+  
   <script>
   const curUrl = window.location.href;
   let n = 1, part1, part2
   if(curUrl.includes('?')){
-   part1 = curUrl.slice(0, curUrl.indexOf('?')).split('/').splice(0,5).join('/');;
+   part1 = curUrl.slice(0, curUrl.indexOf('?')).split('/').splice(0,4).join('/');;
    part2 = curUrl.slice(curUrl.indexOf('?'))
   console.log(part1+'/'+n+ part2)
   }
   else{
-   part1 = curUrl.split('/').splice(0,5).join('/');
+   part1 = curUrl.split('/').splice(0,4).join('/');
    part2 = '';
-   console.log(part1+'/'+n+ part2)
+  //  console.log(part1+'/'+n+ part2)
   }
+  // Sortby function to sort
+  function sortby (value){
+    let url = window.location.href;
+    let newUrl = '';
+  
+    if(url.includes('?sort=')){
+      newUrl = newUrl.concat(url.slice(0, url.indexOf('?sort=')+6),value);
+      if(url.includes('&')){
+       newUrl = newUrl.concat(url.slice(url.indexOf('&')))
+      }
+    }else{
+      newUrl = url.concat(`?sort=${value}`);
+    }
+
+    document.getElementById("sortInput").value = value;
+    console.log(newUrl);
+    // on click route to new link with filter and sort
+    
+    location.href = newUrl;
+    
+    
+    // $.get(newUrl,(data, status)=>{
+      //   $(document.body).html(data);
+      //   console.log(data)
+      // })
+  //  document.getElementById("filterForm").setAttribute('action', newUrl.slice(newUrl.indexOf('dealer')-1))
+  //  console.log(document.getElementById("filterForm").getAttribute('action'))
+  //  document.getElementById("filterForm").submit();
+};
     $(document).ready(() => {
       //changing href values of a tags
       for(let i = 1; i<= Number('<%=pages%>'); i++){
          $(`.page${i}`).attr('href',part1+'/'+i+part2)
-        console.log( $(`.page${i}`).attr('href'))
+        // console.log( $(`.page${i}`).attr('href'))
       }
-
-
+      // $('#sortbyform').attr('action', window.location.href)
+      //  console.log($('#sortbyform').attr('action')) 
 
       $(".open-form").click(() => {
         $(".dealer-form").show();
@@ -302,7 +351,10 @@
         let select = e.target.parentNode.nextElementSibling
         $(select).toggleClass("display_none")
        })
-
+       $(".fa-sort").click((e)=>{
+        let select = e.target.parentNode.nextElementSibling
+        $(select).toggleClass("display_none")
+       })
     
 
     });
@@ -347,12 +399,34 @@
 </script>
 <!-- getting table body data by ajax  -->
 
-<!-- <script>
-   $.get('/get-dealers',(data,status)=>{
-          $('tbody').html(data)
-          })
-</script> -->
-   <script src="/js/index.js"></script>
 
-   
+   <script src="/js/index.js"></script>
+   <script>
+    let url = window.location.href;
+     if(url.includes('sort=custCode')){
+          $('#custCode').hide();
+          $('#-custCode').show();
+     }else{
+      $('#custCode').show();
+          $('#-custCode').hide();
+     }
+     if(url.includes('sort=companyName')){
+          $('#companyName').hide();
+          $('#-companyName').show();
+     }else{
+      $('#companyName').show();
+          $('#-companyName').hide();
+     }
+     if(url.includes('sort=shipToName')){
+          $('#shipToName').hide();
+          $('#-shipToName').show();
+     }else{
+      $('#shipToName').show();
+          $('#-shipToName').hide();
+     }
+     if(url.includes('nearby')){
+       url.replace('nearby', 'dealers')
+     }
+   </script>
+   </body>
 </html>

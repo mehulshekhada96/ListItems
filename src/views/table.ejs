@@ -1,6 +1,6 @@
 <tbody>
     <form
-      action="dealer-data"
+      action="/dealer-data"
       method="POST"
       class="form-control dealer-form"
     >
@@ -210,6 +210,7 @@
           <i id="<%=index%>" class="fas fa-edit edit editbtn"></i>
 
           <form action="/delete/<%= d.id %>">
+            <input type='hidden' name='pageNumber' id='pageNumber1' >
             <button type="submit" class="edit">
               <i class="far fa-trash-alt"></i>
             </button>
@@ -244,3 +245,4 @@
     <%}%>
 
 </tbody>
+

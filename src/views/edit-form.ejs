@@ -1,12 +1,12 @@
 
     <form
-    action="update-dealer-data/<%=editDealer.id%>"
+    action="/dealers/update-dealer-data/<%=editDealer.id%>"
     method="POST"
     class="form-control"
   >
   <!-- <%=editDealer%> -->
   <!-- <%=editDealer["Customer Code"]%> -->
- 
+   <input type='hidden' name='pageNumber' id='pageNumber' >
     <tr class="table-primary table-form-row ">
       <td><h2 class="text-center">Edit Your Details</h2></td>
       <td>
@@ -229,4 +229,7 @@
    $('input[type=text]').keyup(function(){
         $(this).val($(this).val().toUpperCase());
     });
+    let url = window.location.href;
+    const page = url.split('/')[4]
+    $('#pageNumber').attr('value', page)
 </script>

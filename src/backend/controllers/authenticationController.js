@@ -15,13 +15,13 @@ const login =  async (req, res, next)=>{
 				req.session.user = user;
 				// console.log(req.session.user.name)
 				if(req.session.user.role === 'admin') res.redirect('/admin');
-				else res.redirect('/dealers/filter');	
+				else res.redirect('/dealers');	
 			} else {
                 console.log("No correct things")
 				req.session.errorType = 'Failure';
 				req.session.error = "Incorrect Email or Password."
-				// res.redirect('/login');	
-                res.send("Incorrect Email or Password")
+				res.redirect('/login');	
+             
 			}
 		} else {
 			req.session.errorType = 'Failure';
@@ -45,7 +45,7 @@ const signUp = async (req, res, next) => {
 
   req.session.errorType = "Success";
   req.session.error = "Login Successful";
-  res.redirect("/dealers/filter");
+  res.redirect("/dealers");
 };
 
 // Check if user is logged in if he is not then redirect to login page. 
