@@ -32,7 +32,7 @@ const addDealerData = async (req, res, next) => {
     }
   );
 
-  res.redirect("/dealers/1");
+  res.json({ error: "Uploaded Data Successfully" });
   next();
 };
 
@@ -53,7 +53,7 @@ const editDealerForm = async (req, res, next) => {
   );
   res.locals.editDealer = editDealer;
 
-  res.render("edit-form.ejs", { editDealer: res.locals.editDealer });
+  res.json({ editDealer: res.locals.editDealer });
 };
 
 const updateData = async (req, res, next) => {
@@ -61,6 +61,7 @@ const updateData = async (req, res, next) => {
   console.log("pageNumber =", req.body.pageNumber);
 
   const pageNumber = req.body.pageNumber;
+  console.log("body=", req.body);
   Dealer.findOneAndUpdate(
     { _id: id },
     {
@@ -97,7 +98,7 @@ const updateData = async (req, res, next) => {
   );
   req.session.error = "One Data Updated";
   req.session.errorType = "Info";
-  res.redirect("/dealers/" + pageNumber);
+  res.json({ updated: data });
   next();
 };
 
@@ -143,16 +144,6 @@ const filterQuery = (req) => {
   return query;
 };
 
-const dealerFilters = (req, res) => {
-  req.session.filters = req.body;
-  res.redirect("/dealers/1");
-};
-
-const dealerSort = (req, res) => {
-  req.session.sortBy = req.body.sort;
-  res.redirect("/dealers/1");
-};
-
 const sortquery = (req) => {
   // console.log('sortQuery',req.query.sort)
   let sortQuery = {};
@@ -182,8 +173,8 @@ const sortquery = (req) => {
 const dealerPagination = async (req, res, next) => {
   const dealerFilters = await getAllDealers2(req);
   var perPage = 8;
-  var pageN = req.params.pageN || 1;
-
+  var pageN = Number(req.params.pageN) || 1;
+  console.log("pageNumber", pageN);
   await Dealer.find(filterQuery2(req))
     .sort(sortquery(req))
     .skip(perPage * pageN - perPage)
@@ -191,25 +182,29 @@ const dealerPagination = async (req, res, next) => {
     .exec(function (err, dealers) {
       // console.log(dealers)
       Dealer.find(filterQuery2(req))
-        .count()
+        .countDocuments()
         .exec(function (err, count) {
           if (err) return next(err);
           console.log("count = ", count);
-          res.render("dealerDataForm", {
+          res.json({
             dealers: dealers,
-            current: pageN,
-            count: count,
-            pages: Math.ceil(count / perPage),
-
-            session: req.session,
-            name: req.session.user.name,
-            error: req.session.error,
-            errorType: req.session.errorType,
             cities: dealerFilters.cities.sort(),
             zips: dealerFilters.zips.sort(),
             states: dealerFilters.states.sort(),
             areaCodes: dealerFilters.areaCodes.sort(),
+            current: pageN,
+            count: count,
+            pages: Math.ceil(count / perPage),
           });
+          // res.render("dealerDataForm", {
+          //   dealers: dealers,
+
+          //   // session: req.session,
+          //   // name: req.session.user.name,
+          //   // error: req.session.error,
+          //   // errorType: req.session.errorType,
+
+          // });
         });
     });
 };
@@ -241,17 +236,18 @@ const getAllDealers2 = async (req) => {
 
 const filterQuery2 = (req) => {
   let query = {};
-  if (req.query.stateFilter) {
-    query.State = req.query.stateFilter;
+  console.log("query=", req.query);
+  if (req.query.stateFilter && req.query.stateFilter != "undefined") {
+    query.State = req.query.stateFilter.split(",");
   }
-  if (req.query.cityFilter) {
-    query.City = req.query.cityFilter;
+  if (req.query.cityFilter && req.query.cityFilter != "undefined") {
+    query.City = req.query.cityFilter.split(",");
   }
-  if (req.query.zipFilter) {
-    query.Zip = req.query.zipFilter;
+  if (req.query.zipFilter && req.query.zipFilter != "undefined") {
+    query.Zip = req.query.zipFilter.split(",");
   }
-  if (req.query.areaFilter) {
-    query["Area Code"] = req.query.areaFilter;
+  if (req.query.areaFilter && req.query.areaFilter != "undefined") {
+    query["Area Code"] = req.query.areaFilter.split(",");
   }
   return query;
 };
@@ -294,10 +290,11 @@ const dealerPagination2 = async (req, res, next) => {
 };
 
 const nearby = async (req, res) => {
-  let params = req.body;
-  let pincode = params.pincode;
-  let radii = params.radius;
+  let params = req.query;
+  let pincode = Number(params.pincode);
 
+  let radii = Number(params.radius);
+  console.log("pincode ,radius", pincode, radii);
   const dataOfDealers = await Dealer.find();
   // .then(async (data) => {
   const nearDealer = [];
@@ -326,6 +323,7 @@ const nearby = async (req, res) => {
   setTimeout(async () => {
     console.log(4, nearDealer.length);
     nearDealer.forEach((e) => {
+      console.log(e._id);
       newArr.push(e._id);
     });
     const dealerFilters = await getAllDealers2(req);
@@ -337,31 +335,26 @@ const nearby = async (req, res) => {
       .skip(perPage * pageN - perPage)
       .limit(perPage)
       .exec(function (err, dealers) {
-        // console.log(dealers)
+        console.log(dealers);
         Dealer.find({ _id: newArr })
           .count()
           .exec(function (err, count) {
             if (err) return next(err);
             console.log("count = ", count);
-            res.render("dealerDataForm", {
+            res.json({
               dealers: dealers,
-              current: pageN,
-              count: count,
-              pages: Math.ceil(count / perPage),
-
-              session: req.session,
-              name: req.session.user.name,
-              error: req.session.error,
-              errorType: req.session.errorType,
               cities: dealerFilters.cities.sort(),
               zips: dealerFilters.zips.sort(),
               states: dealerFilters.states.sort(),
               areaCodes: dealerFilters.areaCodes.sort(),
+              current: pageN,
+              count: count,
+              pages: Math.ceil(count / perPage),
             });
           });
       });
-
-    // res.json(newArr);
+    // console.log(newArr)
+    // return newArr;
   }, 1000);
   // });
 };

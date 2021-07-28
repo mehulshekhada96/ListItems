@@ -65,43 +65,14 @@ app.get("/register", (req, res) => {
   res.render("register.ejs",{ session: req.session, error :req.session.error, errorType :req.session.errorType});
 });
 app.post("/register",function(req,res, next){
-  // g-recaptcha-response is the key that browser will generate upon form submit.
+  console.log(req.body)
+   // g-recaptcha-response is the key that browser will generate upon form submit.
   // if its blank or null means user has not selected the captcha, so return the error.
   if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
     // return res.json({"responseCode" : 1,"responseDesc" : "Please select captcha"});
-    req.session.error = "Please Fill Recaptcha"
+    req.session.error = ""
     req.session.errorType = 'Failure';
-    res.redirect('/register');
-   
-  }
-  // Put your secret key here.
-  var secretKey = "6LcrxY4bAAAAAB5dAc86iH458Um8NiURbotxjzoN";
-  // req.connection.remoteAddress will provide IP address of connected user.
-  var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
-  // Hitting GET request to the URL, Google will respond with success or error scenario.
-  request(verificationUrl,function(error,response,body) {
-    body = JSON.parse(body);
-    // Success will be true or false depending upon captcha validation.
-    if(body.success !== undefined && !body.success) {
-      // return res.json({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
-      req.session.error = "Failed captcha verification"
-      req.session.errorType = 'Failure';
-      res.render('register.ejs');
-    }
-    // res.json({"responseCode" : 0,"responseDesc" : "Sucess"});
-    next()
-  });
-}, auth.signUp);
-// app.post("/login", auth.login);
-
-app.post('/login',function(req,res, next){
-  // g-recaptcha-response is the key that browser will generate upon form submit.
-  // if its blank or null means user has not selected the captcha, so return the error.
-  if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
-    // return res.json({"responseCode" : 1,"responseDesc" : "Please select captcha"});
-    req.session.error = "Please Fill Recaptcha"
-    req.session.errorType = 'Failure';
-    res.redirect('/login');
+    return res.json({error: 'Please Fill Recaptcha'});
  
   }
   // Put your secret key here.
@@ -112,18 +83,48 @@ app.post('/login',function(req,res, next){
   request(verificationUrl,function(error,response,body) {
     body = JSON.parse(body);
     // Success will be true or false depending upon captcha validation.
-    if(body.success !== undefined && !body.success) {
+    if(body.success !== undefined  && !body.success) {
       // return res.json({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
       req.session.error = "Failed captcha verification"
       req.session.errorType = 'Failure';
-      res.render('login.ejs');
+      return res.json({error : "Failed captcha verification"})
+    }
+    // res.json({"responseCode" : 0,"responseDesc" : "Sucess"});
+    next()
+  });
+}, auth.signUp);
+
+
+app.post('/login',function(req,res, next){
+  // g-recaptcha-response is the key that browser will generate upon form submit.
+  // if its blank or null means user has not selected the captcha, so return the error.
+  if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null) {
+    // return res.json({"responseCode" : 1,"responseDesc" : "Please select captcha"});
+    req.session.error = ""
+    req.session.errorType = 'Failure';
+    return res.json({error: 'Please Fill Recaptcha'});
+ 
+  }
+  // Put your secret key here.
+  var secretKey = "6LcrxY4bAAAAAB5dAc86iH458Um8NiURbotxjzoN";
+  // req.connection.remoteAddress will provide IP address of connected user.
+  var verificationUrl = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
+  // Hitting GET request to the URL, Google will respond with success or error scenario.
+  request(verificationUrl,function(error,response,body) {
+    body = JSON.parse(body);
+    // Success will be true or false depending upon captcha validation.
+    if(body.success !== undefined  && !body.success) {
+      // return res.json({"responseCode" : 1,"responseDesc" : "Failed captcha verification"});
+      req.session.error = "Failed captcha verification"
+      req.session.errorType = 'Failure';
+      return res.json({error : "Failed captcha verification"})
     }
     // res.json({"responseCode" : 0,"responseDesc" : "Sucess"});
     next()
   });
 }, auth.login);
 
-
+// app.post('/login',auth.login)
 
 
 
@@ -135,13 +136,16 @@ app.get('/logout', (req,res)=>{
   req.session.errorType= 'Success'
 	res.redirect('/login');
 })
-app.post("/dealer-data",auth.redirectLogin, auth.redirectLogin2, deal.addDealerData);
+app.post("/dealer-data",
+// auth.redirectLogin, auth.redirectLogin2,
+ deal.addDealerData);
 
-app.get("/admin",auth.redirectLogin, auth.redirectLogin2, admin.getUsers, (req, res) => {
-  res.render("admin.ejs", { users: res.locals.doc, session: req.session,email1:req.session.user.email,  name:req.session.user.name, error :req.session.error, errorType :req.session.errorType});
+app.get("/admin",/*auth.redirectLogin, auth.redirectLogin2, */admin.getUsers, (req, res) => {
+  // res.render("admin.ejs", { users: res.locals.doc, session: req.session,email1:req.session.user.email,  name:req.session.user.name, error :req.session.error, errorType :req.session.errorType});
+  res.json({ users: res.locals.doc/*, session: req.session,email1:req.session.user.email,  name:req.session.user.name, error :req.session.error, errorType :req.session.errorType*/})
   res.end();
 });
-app.post(`/change-user-role/:id`,auth.redirectLogin, auth.redirectLogin2, admin.changeUserRole )
+app.post(`/change-user-role/:id`/*,auth.redirectLogin, auth.redirectLogin2 */, admin.changeUserRole )
 global.__basedir = __dirname;
 
 // -> Multer Upload Storage
@@ -159,7 +163,7 @@ const upload = multer({ storage: storage });
 // -> Express Upload RestAPIs
 // Always use name of file input in upload.single(ex. here = 'csvFile')
 app.post("/uploadFile", upload.single("csvFile"), (req, res) => {
-  // console.log(req.file);
+  console.log(req);
   importCsvData2MongoDB(__basedir + "/public/uploads/" + req.file.filename);
   req.session.error = 'CSV Imported Successfully';
   req.session.errorType= 'Success'
@@ -188,14 +192,21 @@ function importCsvData2MongoDB(filePath) {
   // fs.unlinkSync(filePath);
 }
 // pagination api Get 'page' parameter from browser
-app.get("/dealers/:pageN",auth.redirectLogin, auth.redirectLogin2, deal.dealerPagination);
+app.get("/dealers/:pageN",
+// auth.redirectLogin, auth.redirectLogin2, 
+// deal.nearby
+// ,
+deal.dealerPagination
+);
 
-app.get('/delete/:id',auth.redirectLogin, auth.redirectLogin2,(req,res,next)=>{
+app.get('/delete/:id',
+// auth.redirectLogin, auth.redirectLogin2,
+(req,res,next)=>{
   // const pageNo = req.params.pageNo;
   // res.locals.pageNo = pageNo;
   // console.log(pageNo);
   const pageNumber = req.params.pageNumber
-  // console.log('pageNumber =', pageNumber)
+  console.log('pageNumber =', pageNumber)
   const id = req.params.id;
   Dealer.findByIdAndDelete(id,(err, data)=>{
     if(err) {
@@ -211,22 +222,31 @@ app.get('/delete/:id',auth.redirectLogin, auth.redirectLogin2,(req,res,next)=>{
   res.redirect(`/dealers`);
 
 })
-app.get('/edit-form/:index',auth.redirectLogin, auth.redirectLogin2, deal.editDealerForm)
+app.get('/edit-form/:index',
+// auth.redirectLogin, auth.redirectLogin2,
+ deal.editDealerForm)
 app.put('/disable-error', auth.clearError);
 
 
 
-app.post('/dealers/update-dealer-data/:id',auth.redirectLogin, auth.redirectLogin2, deal.updateData);
+app.post('/dealers/update-dealer-data/:id',
+// auth.redirectLogin, auth.redirectLogin2, 
+deal.updateData);
 
 app.get('/getAllDealers',auth.redirectLogin, auth.redirectLogin2, deal.getAllDealers )
 
-app.post('/dealers',auth.redirectLogin, auth.redirectLogin2,deal.nearby, deal.dealerPagination)
+app.post('/dealers',
+// auth.redirectLogin, auth.redirectLogin2,
+
+ deal.dealerPagination)
   // res.send({cityFilter, zipFilter, stateFilter, areaFilter})
 
-app.get('/dealers/',auth.redirectLogin, auth.redirectLogin2,
- deal.dealerPagination
-// (req,res)=>res.json(req.query)
- )
+// app.get('/dealers',
+// // auth.redirectLogin, auth.redirectLogin2,
+//  deal.nearby,
+//  deal.dealerPagination
+// // (req,res)=>res.json(req.query)
+//  )
 
 app.listen(app.get("port"), () => {
   console.log("Application started Listening on ", app.get("port"));

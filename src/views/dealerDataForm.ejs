@@ -1,302 +1,323 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <%- include ('partials/head.ejs') %>
+
+<head>
+  <%- include ('partials/head.ejs') %>
     <title>Dealer data form</title>
-  </head>
-  <body>
-    <div class="container container-big">
-      <header class="header navbar navbar-expand-lg navbar-light bg-light"">
-        <h1 class="session-name"> Hello <%=name%> ! Welcome!! </h1>
-        <ul class= "container-fluid navbar-nav me-auto mb-2 mb-lg-0">
+</head>
+
+<body>
+  <div class="container container-big">
+    <header class="header navbar navbar-expand-lg navbar-light bg-light"">
+        <h1 class=" session-name"> Hello <%=name%> ! Welcome!! </h1>
+        <ul class="container-fluid navbar-nav me-auto mb-2 mb-lg-0">
           <!-- <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="#"> <%=name%></a>
         </li> -->
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
-            </li>
-          
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/logout">Logout</a>
+          </li>
+
         </ul>
     </header>
     <% if(error) {%>
       <% if(errorType==='Success' ) { %>
-          <div class="error_container error_container--success">
+        <div class="error_container error_container--success">
+          <div class="col--1">
+            <div class="error_container__icon">
+              <i class="fas fa-check-circle"></i>
+            </div>
+          </div>
+          <div class="col--2">
+            <div class="error_container__title heading-3">
+              Success
+            </div>
+            <span class="para-1 error" id="cancelLogin">
+              <%= error %>
+                <!-- Valid Only for 60 Seconds. -->
+            </span>
+          </div>
+          <div class="col--3">
+            <div class="error_container__icon" id="cross">
+              <i class="fas fa-times"></i>
+            </div>
+          </div>
+        </div>
+        <% } %>
+          <% if(errorType==='Failure' ) { %>
+            <div class="error_container">
               <div class="col--1">
-                  <div class="error_container__icon">
-                      <i class="fas fa-check-circle"></i>
-                  </div>
+                <div class="error_container__icon">
+                  <i class="fas fa-times-circle"></i>
+                </div>
               </div>
               <div class="col--2">
-                  <div class="error_container__title heading-3">
-                      Success
-                  </div>
-                  <span class="para-1 error" id="cancelLogin">
-                      <%= error %>
-                          <!-- Valid Only for 60 Seconds. -->
-                  </span>
+                <div class="error_container__title heading-3">
+                  Failure
+                </div>
+                <span class="para-1 error" id="cancelLogin">
+                  <%= error %>
+                    <!-- Valid Only for 60 Seconds. -->
+                </span>
               </div>
               <div class="col--3">
-                  <div class="error_container__icon" id="cross">
-                      <i class="fas fa-times"></i>
-                  </div>
+                <div class="error_container__icon" id="cross">
+                  <i class="fas fa-times"></i>
+                </div>
               </div>
-          </div>
-          <% } %>
-              <% if(errorType==='Failure' ) { %>
-                  <div class="error_container">
-                      <div class="col--1">
-                          <div class="error_container__icon">
-                              <i class="fas fa-times-circle"></i>
-                          </div>
-                      </div>
-                      <div class="col--2">
-                          <div class="error_container__title heading-3">
-                              Failure
-                          </div>
-                          <span class="para-1 error" id="cancelLogin">
-                              <%= error %>
-                                  <!-- Valid Only for 60 Seconds. -->
-                          </span>
-                      </div>
-                      <div class="col--3">
-                          <div class="error_container__icon" id="cross">
-                              <i class="fas fa-times"></i>
-                          </div>
-                      </div>
+            </div>
+            <% } %>
+              <% if(errorType==='Info' ) { %>
+                <div class="error_container error_container--info">
+                  <div class="col--1">
+                    <div class="error_container__icon">
+                      <i class="fas fa-info-circle"></i>
+                    </div>
                   </div>
+                  <div class="col--2">
+                    <div class="error_container__title heading-3">
+                      Info
+                    </div>
+                    <span class="para-1 error" id="cancelLogin">
+                      <%= error %>
+                        <!-- Valid Only for 60 Seconds. -->
+                    </span>
+                  </div>
+                  <div class="col--3">
+                    <div class="error_container__icon" id="cross">
+                      <i class="fas fa-times"></i>
+                    </div>
+                  </div>
+                </div>
+                <% } %>
                   <% } %>
-                      <% if(errorType==='Info' ) { %>
-                          <div class="error_container error_container--info">
-                              <div class="col--1">
-                                  <div class="error_container__icon">
-                                      <i class="fas fa-info-circle"></i>
-                                  </div>
-                              </div>
-                              <div class="col--2">
-                                  <div class="error_container__title heading-3">
-                                      Info
-                                  </div>
-                                  <span class="para-1 error" id="cancelLogin">
-                                      <%= error %>
-                                          <!-- Valid Only for 60 Seconds. -->
+                    <div class="parent">
+                      <div class="table-container">
+                        <table class="table table-secondary dealer-table">
+                          <thead class="">
+
+                            <tr>
+                              <th></th>
+                              <form action="/dealers" method="GET" id='filterForm'>
+                                <input type="hidden" name="sort" id="sortInput" value="custCode">
+                                <th>
+                                  <span class="filterTag"> Customer Code
+                                    <i onclick='sortby("custCode")' id="custCode" class="fas fa-sort-alpha-down"></i>
+                                    <i onclick='sortby("-custCode")' id="-custCode" class="fas fa-sort-alpha-up"></i>
                                   </span>
-                              </div>
-                              <div class="col--3">
-                                  <div class="error_container__icon" id="cross">
-                                      <i class="fas fa-times"></i>
-                                  </div>
-                              </div>
-                          </div>
-                          <% } %>
-                              <% } %>
-      <div class="parent">
-      <div class="table-container">
-        <table class="table table-secondary dealer-table">
-          <thead class="">
-            
-            <tr>
-              <th></th>
-              <form action="/dealers"  method="GET" id='filterForm' >
-                <input type="hidden" name="sort" id="sortInput" value="custCode">
-              <th>
-                 <span class="filterTag"> Customer Code
-                  <i onclick='sortby("custCode")' id="custCode" class="fas fa-sort-alpha-down"></i>
-                  <i onclick='sortby("-custCode")' id="-custCode"  class="fas fa-sort-alpha-up"></i>
-                  </span>
-                 
-              </th>
-              <th>
-                <span class="filterTag"> Company Name 
-                  <i onclick='sortby("companyName")' id="companyName" class="fas fa-sort-alpha-down"></i>
-                  <i onclick='sortby("-companyName")' id="-companyName" class="fas fa-sort-alpha-up"></i>
-                </span>
-                
-              </th>
-              <th>
-                <span class="filterTag">Ship to Name
-                  <i onclick='sortby("shipToName")' id="shipToName"  class="fas fa-sort-alpha-down"></i>
-                  <i onclick='sortby("-shipToName")' id="-shipToName" class="fas fa-sort-alpha-up"></i>
-               </span>
-              </th>
-          
-              <th>Physical Address Line 1</th>
-         
-              <th> <span class="filterTag"> City <i class="fas fa-filter"></i> </span>
-                <select onchange="this.form.submit()" name="cityFilter" id="cityfilter" class="filter form-select display_none" size="10" aria-label="size 4 select example" multiple>
-                  <%for(let c of cities){%>
-                  <option value="<%=c%>"><%=c%></option>
-                   <%}%>
-                </select>
-              </th>
-              <th> <span class="filterTag">State <i class="fas fa-filter"></i></span>
-                <select onchange="this.form.submit()" name="stateFilter" id="statefilter" class="filter form-select display_none" size="10" aria-label="size 4 select example"multiple>
-                  <%for(let s of states){%>
-                  <option value="<%=s%>"><%=s%></option>
-                  <%}%>
-                </select>
-              </th>
-              <th><span class="filterTag"> Zip <i class="fas fa-filter"></i></span>
-                <select  onchange="this.form.submit()" name="zipFilter" id="zipfilter" class="filter form-select display_none" multiple size="10" aria-label="size 3 select example">
-                  <%for(let s of zips){%>
-                    <option value="<%=s%>"><%=s%></option>
-                    <%}%>
-                </select>
-              </th>
-              <th><span class="filterTag">Area Code <i class="fas fa-filter"></i></span>
-                <select onchange="this.form.submit()" name="areaFilter" id="areafilter" class="filter form-select display_none" multiple size="10" aria-label="size 4 select example">
-                  <%for(let s of areaCodes){%>
-                    <option value="<%=s%>"><%=s%></option>
-                    <%}%>
-                </select>
-              </th>
-              <th>Phone Exchange</th>
-              <th>Physical Phone</th>
-              <th>EMAIL_ADDRESS</th>
-              <th>EMAIL_ADDRESS_2</th>
-              <th>Profile Desc</th>
-              <th>Dist</th>
-              <th>Account</th>
-              <th>Display</th>
-              <th>Date</th>
-              <th>EndDate</th>
-              <th>CRM</th>
-              <th></th>
-              <th>Website</th>
-              <th>Lat</th>
-              <th>Long</th>
-            </tr>
-            <button type="submit" class=' btn-primary' id='filtBtn' >No Filter</button>
-          </form>
-          </thead>
-          <tbody>
-             <%-include ("./table.ejs")%>
-          </tbody>
-         
-        </table>
-       
-      </div>
-      <div class="scroll-to-left">
-        <span > <i class="fas fa-chevron-left"></i> <i class="fas fa-circle dot" ></i> </span>
-      </div>
-    </div>
-      
-      <!-- Pagination -->
-      <% if (pages > 0) { %>
-      <ul class="pagination text-center">
-        <% if (current == 1) { %>
-        <li class="disabled"><a>First</a></li>
-        <% } else { %>
-        <li><a class="page1" href="/dealers/1">First</a></li>
-        <% } %> <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %> <%
-        if (i !== 1) { %>
-        <li class="disabled dots"><a>...</a></li>
-        <% } %> <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %> <%
-        if (i == current) { %>
-        <li class="active"><a><%= i %></a></li>
-        <% } else { %>
-        <li><a class="page<%=i%>" href="/dealers/<%= i %>"><%= i %></a></li>
-        <% } %> <% if (i == Number(current) + 4 && i < pages) { %>
-        <li class="disabled dots"><a>...</a></li>
-        <% } %> <% } %> <% if (current == pages) { %>
-        <li class="disabled"><a>Last</a></li>
-        <% } else { %>
-        <li><a class="page<%=pages%>" href="/dealers/<%= pages %>">Last</a></li>
-        <% } %>
-      </ul>
-      <% } %>
-      <div class="bold text-center">
-        <%if (count > 0) { %>
-        Total Dealers = <%=count %> Found
-        <%}else{%>
-          No Data Found, Add Some Data
-          <%}%>
-      </div>
-     <div class = 'searchNearBy'>
-       <form action="/dealers" method='POST'>
-        <label for="pincode"> Search for Nearest Dealers, Enter Pincode</label>
-         <input type="text" name='pincode' id="pincode" required >
-         <label for="raddi"> Enter Radius of Nearby Distance in KM</label>
-         <input type="text" name='radius' id="" required >
-         <button type="submit" class="btn btn-primary">Submit</button>
-      </form>
-     </div>   
-      <div class="upload">
-        <button type="menu" class="btn btn-success open-form">Add Data</button>
-        <b> Or Upload CSV File:</b>
-        <form
-          action="/uploadFile"
-          method="POST"
-          enctype="multipart/form-data"
-          class="form-control uploadCsv"
-        >
-          <input
-            type="file"
-            class="form-control"
-            name="csvFile"
-            accept=".csv"
-            required
-          />
-          <button type="submit" class="btn btn-primary">Upload</button>
-        </form>
-      </div>
-     
-    </div>
 
-    <!-- Edit form on click edit button -->
+                                </th>
+                                <th>
+                                  <span class="filterTag"> Company Name
+                                    <i onclick='sortby("companyName")' id="companyName"
+                                      class="fas fa-sort-alpha-down"></i>
+                                    <i onclick='sortby("-companyName")' id="-companyName"
+                                      class="fas fa-sort-alpha-up"></i>
+                                  </span>
 
-    <div id="edit-form-container">
-      <span class="display_none" id="cancle1"> <i class="far fa-times-circle cancle"></i></span>
-      <div id="update-data-form"></div>
-    </div>
+                                </th>
+                                <th>
+                                  <span class="filterTag">Ship to Name
+                                    <i onclick='sortby("shipToName")' id="shipToName"
+                                      class="fas fa-sort-alpha-down"></i>
+                                    <i onclick='sortby("-shipToName")' id="-shipToName"
+                                      class="fas fa-sort-alpha-up"></i>
+                                  </span>
+                                </th>
 
-    <div class="overlay display_none"></div>
-  
+                                <th>Physical Address Line 1</th>
+
+                                <th> <span class="filterTag"> City <i class="fas fa-filter"></i> </span>
+                                  <select onchange="this.form.submit()" name="cityFilter" id="cityfilter"
+                                    class="filter form-select display_none" size="10" aria-label="size 4 select example"
+                                    multiple>
+                                    <%for(let c of cities){%>
+                                      <option value="<%=c%>">
+                                        <%=c%>
+                                      </option>
+                                      <%}%>
+                                  </select>
+                                </th>
+                                <th> <span class="filterTag">State <i class="fas fa-filter"></i></span>
+                                  <select onchange="this.form.submit()" name="stateFilter" id="statefilter"
+                                    class="filter form-select display_none" size="10" aria-label="size 4 select example"
+                                    multiple>
+                                    <%for(let s of states){%>
+                                      <option value="<%=s%>">
+                                        <%=s%>
+                                      </option>
+                                      <%}%>
+                                  </select>
+                                </th>
+                                <th><span class="filterTag"> Zip <i class="fas fa-filter"></i></span>
+                                  <select onchange="this.form.submit()" name="zipFilter" id="zipfilter"
+                                    class="filter form-select display_none" multiple size="10"
+                                    aria-label="size 3 select example">
+                                    <%for(let s of zips){%>
+                                      <option value="<%=s%>">
+                                        <%=s%>
+                                      </option>
+                                      <%}%>
+                                  </select>
+                                </th>
+                                <th><span class="filterTag">Area Code <i class="fas fa-filter"></i></span>
+                                  <select onchange="this.form.submit()" name="areaFilter" id="areafilter"
+                                    class="filter form-select display_none" multiple size="10"
+                                    aria-label="size 4 select example">
+                                    <%for(let s of areaCodes){%>
+                                      <option value="<%=s%>">
+                                        <%=s%>
+                                      </option>
+                                      <%}%>
+                                  </select>
+                                </th>
+                                <th>Phone Exchange</th>
+                                <th>Physical Phone</th>
+                                <th>EMAIL_ADDRESS</th>
+                                <th>EMAIL_ADDRESS_2</th>
+                                <th>Profile Desc</th>
+                                <th>Dist</th>
+                                <th>Account</th>
+                                <th>Display</th>
+                                <th>Date</th>
+                                <th>EndDate</th>
+                                <th>CRM</th>
+                                <th></th>
+                                <th>Website</th>
+                                <th>Lat</th>
+                                <th>Long</th>
+                            </tr>
+                            <button type="submit" class=' btn-primary' id='filtBtn'>No Filter</button>
+                            </form>
+                          </thead>
+                          <tbody>
+                            <%-include ("./table.ejs")%>
+                          </tbody>
+
+                        </table>
+
+                      </div>
+                      <div class="scroll-to-left">
+                        <span> <i class="fas fa-chevron-left"></i> <i class="fas fa-circle dot"></i> </span>
+                      </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <% if (pages> 0) { %>
+                      <ul class="pagination text-center">
+                        <% if (current==1) { %>
+                          <li class="disabled"><a>First</a></li>
+                          <% } else { %>
+                            <li><a class="page1" href="/dealers/1">First</a></li>
+                            <% } %>
+                              <% var i=(Number(current)> 5 ? Number(current) - 4 : 1) %> <% if (i !==1) { %>
+                                  <li class="disabled dots"><a>...</a></li>
+                                  <% } %>
+                                    <% for (; i <=(Number(current) + 4) && i <=pages; i++) { %>
+                                      <% if (i==current) { %>
+                                        <li class="active"><a>
+                                            <%= i %>
+                                          </a></li>
+                                        <% } else { %>
+                                          <li><a class="page<%=i%>" href="/dealers/<%= i %>">
+                                              <%= i %>
+                                            </a></li>
+                                          <% } %>
+                                            <% if (i==Number(current) + 4 && i < pages) { %>
+                                              <li class="disabled dots"><a>...</a></li>
+                                              <% } %>
+                                                <% } %>
+                                                  <% if (current==pages) { %>
+                                                    <li class="disabled"><a>Last</a></li>
+                                                    <% } else { %>
+                                                      <li><a class="page<%=pages%>"
+                                                          href="/dealers/<%= pages %>">Last</a></li>
+                                                      <% } %>
+                      </ul>
+                      <% } %>
+                        <div class="bold text-center">
+                          <%if (count> 0) { %>
+                            Total Dealers = <%=count %> Found
+                              <%}else{%>
+                                No Data Found, Add Some Data
+                                <%}%>
+                        </div>
+                        <div class='searchNearBy'>
+                          <form action="/dealers" method='POST'>
+                            <label for="pincode"> Search for Nearest Dealers, Enter Pincode</label>
+                            <input type="text" name='pincode' id="pincode" required>
+                            <label for="raddi"> Enter Radius of Nearby Distance in KM</label>
+                            <input type="text" name='radius' id="" required>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                          </form>
+                        </div>
+                        <div class="upload">
+                          <button type="menu" class="btn btn-success open-form">Add Data</button>
+                          <b> Or Upload CSV File:</b>
+                          <form action="/uploadFile" method="POST" enctype="multipart/form-data"
+                            class="form-control uploadCsv">
+                            <input type="file" class="form-control" name="csvFile" accept=".csv" required />
+                            <button type="submit" class="btn btn-primary">Upload</button>
+                          </form>
+                        </div>
+
+  </div>
+
+  <!-- Edit form on click edit button -->
+
+  <div id="edit-form-container">
+    <span class="display_none" id="cancle1"> <i class="far fa-times-circle cancle"></i></span>
+    <div id="update-data-form"></div>
+  </div>
+
+  <div class="overlay display_none"></div>
+
   <script>
-  const curUrl = window.location.href;
-  let n = 1, part1, part2
-  if(curUrl.includes('?')){
-   part1 = curUrl.slice(0, curUrl.indexOf('?')).split('/').splice(0,4).join('/');;
-   part2 = curUrl.slice(curUrl.indexOf('?'))
-  console.log(part1+'/'+n+ part2)
-  }
-  else{
-   part1 = curUrl.split('/').splice(0,4).join('/');
-   part2 = '';
-  //  console.log(part1+'/'+n+ part2)
-  }
-  // Sortby function to sort
-  function sortby (value){
-    let url = window.location.href;
-    let newUrl = '';
-  
-    if(url.includes('?sort=')){
-      newUrl = newUrl.concat(url.slice(0, url.indexOf('?sort=')+6),value);
-      if(url.includes('&')){
-       newUrl = newUrl.concat(url.slice(url.indexOf('&')))
-      }
-    }else{
-      newUrl = url.concat(`?sort=${value}`);
+    const curUrl = window.location.href;
+    let n = 1, part1, part2
+    if (curUrl.includes('?')) {
+      part1 = curUrl.slice(0, curUrl.indexOf('?')).split('/').splice(0, 4).join('/');;
+      part2 = curUrl.slice(curUrl.indexOf('?'))
+      console.log(part1 + '/' + n + part2)
     }
+    else {
+      part1 = curUrl.split('/').splice(0, 4).join('/');
+      part2 = '';
+      //  console.log(part1+'/'+n+ part2)
+    }
+    // Sortby function to sort
+    function sortby(value) {
+      let url = window.location.href;
+      let newUrl = '';
 
-    document.getElementById("sortInput").value = value;
-    console.log(newUrl);
-    // on click route to new link with filter and sort
-    
-    location.href = newUrl;
-    
-    
-    // $.get(newUrl,(data, status)=>{
+      if (url.includes('?sort=')) {
+        newUrl = newUrl.concat(url.slice(0, url.indexOf('?sort=') + 6), value);
+        if (url.includes('&')) {
+          newUrl = newUrl.concat(url.slice(url.indexOf('&')))
+        }
+      } else {
+        newUrl = url.concat(`?sort=${value}`);
+      }
+
+      document.getElementById("sortInput").value = value;
+      console.log(newUrl);
+      // on click route to new link with filter and sort
+
+      location.href = newUrl;
+
+
+      // $.get(newUrl,(data, status)=>{
       //   $(document.body).html(data);
       //   console.log(data)
       // })
-  //  document.getElementById("filterForm").setAttribute('action', newUrl.slice(newUrl.indexOf('dealer')-1))
-  //  console.log(document.getElementById("filterForm").getAttribute('action'))
-  //  document.getElementById("filterForm").submit();
-};
+      //  document.getElementById("filterForm").setAttribute('action', newUrl.slice(newUrl.indexOf('dealer')-1))
+      //  console.log(document.getElementById("filterForm").getAttribute('action'))
+      //  document.getElementById("filterForm").submit();
+    };
     $(document).ready(() => {
       //changing href values of a tags
-      for(let i = 1; i<= Number('<%=pages%>'); i++){
-         $(`.page${i}`).attr('href',part1+'/'+i+part2)
+      for (let i = 1; i <= Number('<%=pages%>'); i++) {
+        $(`.page${i}`).attr('href', part1 + '/' + i + part2)
         // console.log( $(`.page${i}`).attr('href'))
       }
       // $('#sortbyform').attr('action', window.location.href)
@@ -308,7 +329,7 @@
         $(".open-form").hide();
         $(".upload").hide();
         $(".dealer-form-btn").show();
-        $(".table-container").css('overflowY','hidden')
+        $(".table-container").css('overflowY', 'hidden')
       });
       $("#cancle").click(() => {
         $(".dealer-form").hide();
@@ -316,117 +337,118 @@
         $(".open-form").show();
         $(".upload").show();
         $(".dealer-form-btn").hide();
-        $(".table-container").css('overflowY','auto')
+        $(".table-container").css('overflowY', 'auto')
       });
 
       // getting editing form popup, with ID corresponding to edit button's tr tag
       $(".editbtn").click(function (event) {
         var index = $(event.target).attr("id");
-    
+
         console.log(index);
 
         $.get(`/edit-form/${index}`, function (data, status) {
-       
+
           $("#update-data-form").html(data);
-           
-        });
-       
-        
-      });
-      
-      $("#cancle1, .overlay").click(() => {
-          $(this).hide();
-          $("#edit-form-container").hide();
-          $(".overlay").addClass("display_none");
-          $("body").css('overflowY','auto')
-        });
-        $(".editbtn").click(() => {
-          $('#cancle1').show();
-          $("#edit-form-container").show();
-          $(".overlay").removeClass("display_none");
-          $("body").css('overflowY','hidden')
+
         });
 
-        $(".fa-filter").click((e)=>{
+
+      });
+
+      $("#cancle1, .overlay").click(() => {
+        $(this).hide();
+        $("#edit-form-container").hide();
+        $(".overlay").addClass("display_none");
+        $("body").css('overflowY', 'auto')
+      });
+      $(".editbtn").click(() => {
+        $('#cancle1').show();
+        $("#edit-form-container").show();
+        $(".overlay").removeClass("display_none");
+        $("body").css('overflowY', 'hidden')
+      });
+
+      $(".fa-filter").click((e) => {
         let select = e.target.parentNode.nextElementSibling
         $(select).toggleClass("display_none")
-       })
-       $(".fa-sort").click((e)=>{
+      })
+      $(".fa-sort").click((e) => {
         let select = e.target.parentNode.nextElementSibling
         $(select).toggleClass("display_none")
-       })
-    
+      })
+
 
     });
-  
 
-     $('input[type=text]').keyup(function(){
-        $(this).val($(this).val().toUpperCase());
+
+    $('input[type=text]').keyup(function () {
+      $(this).val($(this).val().toUpperCase());
     });
 
 
     let table = document.getElementsByClassName("table-container");
     let scrollArrow = document.querySelector('.scroll-to-left');
     scrollArrow.style.display = 'none'
-  table[0].addEventListener('scroll',()=>{
-    console.log('scrolled')
-    if(table[0].scrollLeft > 150){
-      scrollArrow.style.display = 'flex'
-    }else{
-      scrollArrow.style.display = 'none'
-    }
-  })
-  scrollArrow.addEventListener('click',()=>{
-    table[0].scrollTo(0,0); 
-  })
-  // console.log(table[0].getBoundingClientRect())
-  console.log(`<%=current%>`)
+    table[0].addEventListener('scroll', () => {
+      console.log('scrolled')
+      if (table[0].scrollLeft > 150) {
+        scrollArrow.style.display = 'flex'
+      } else {
+        scrollArrow.style.display = 'none'
+      }
+    })
+    scrollArrow.addEventListener('click', () => {
+      table[0].scrollTo(0, 0);
+    })
+    // console.log(table[0].getBoundingClientRect())
+    console.log(`<%=current%>`)
   </script>
-<!-- Setting Position of form buttons according to height of the container -->
-<script>
-  const th = document.querySelector("th");
-  console.log(th.offsetHeight)
-  const formHeight = document.querySelectorAll("tr")[0].offsetHeight
-  const btn = document.querySelector(".dealer-form-btn");
-  btn.style.top = `${th.offsetHeight + formHeight + 20}px`
-</script>
-<!-- Seetting height of overlay -->
-<script>
-  const overlay = document.querySelector(".overlay");
-  const bodyHeight = document.body.offsetHeight
-  console.log(bodyHeight);
-  overlay.style.height= bodyHeight;
-</script>
-<!-- getting table body data by ajax  -->
+  <!-- Setting Position of form buttons according to height of the container -->
+  <script>
+    const th = document.querySelector("th");
+    console.log(th.offsetHeight)
+    const formHeight = document.querySelectorAll("tr")[0].offsetHeight
+    const btn = document.querySelector(".dealer-form-btn");
+    btn.style.top = `${th.offsetHeight + formHeight + 20}px`
+  </script>
+  <!-- Seetting height of overlay -->
+  <script>
+    const overlay = document.querySelector(".overlay");
+    const bodyHeight = document.body.offsetHeight
+    console.log(bodyHeight);
+    overlay.style.height = bodyHeight;
+  </script>
+  <!-- getting table body data by ajax  -->
 
 
-   <script src="/js/index.js"></script>
-   <script>
+  <script src="/js/index.js"></script>
+  <script>
     let url = window.location.href;
-     if(url.includes('sort=custCode')){
-          $('#custCode').hide();
-          $('#-custCode').show();
-     }else{
+    if (url.includes('sort=custCode')) {
+      $('#custCode').hide();
+      $('#-custCode').show();
+    } else {
       $('#custCode').show();
-          $('#-custCode').hide();
-     }
-     if(url.includes('sort=companyName')){
-          $('#companyName').hide();
-          $('#-companyName').show();
-     }else{
+      $('#-custCode').hide();
+    }
+    if (url.includes('sort=companyName')) {
+      $('#companyName').hide();
+      $('#-companyName').show();
+    } else {
       $('#companyName').show();
-          $('#-companyName').hide();
-     }
-     if(url.includes('sort=shipToName')){
-          $('#shipToName').hide();
-          $('#-shipToName').show();
-     }else{
+      $('#-companyName').hide();
+    }
+    if (url.includes('sort=shipToName')) {
+      $('#shipToName').hide();
+      $('#-shipToName').show();
+    } else {
       $('#shipToName').show();
-          $('#-shipToName').hide();
-     }
-     if(url.includes('nearby')){
-       url.replace('nearby', 'dealers')
-     }
-   </script>
-   </body>
+      $('#-shipToName').hide();
+    }
+    if (url.includes('nearby')) {
+      url.replace('nearby', 'dealers')
+    }
+  </script>
+</body>
+
 </html>
