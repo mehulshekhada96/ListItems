@@ -360,7 +360,7 @@ const nearby = async (req, res) => {
 };
 const distance = async (pincode, lat, lng) => {
   const location = await fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${pincode}&key=AIzaSyAf_5lVGHvMEcsI3cRzIyrz9AxqaFtaEQk`
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${pincode}&key=${process.env.GOOGLE_API}`
   )
     .then((result) => result.text())
     .then((text) => {
