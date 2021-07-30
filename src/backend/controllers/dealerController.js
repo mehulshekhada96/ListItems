@@ -99,7 +99,7 @@ const updateData = async (req, res, next) => {
   req.session.error = "One Data Updated";
   req.session.errorType = "Info";
   res.json({ updated: data });
-  next();
+
 };
 
 const getAllDealers = async () => {
