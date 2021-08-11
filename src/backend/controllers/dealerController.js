@@ -307,18 +307,20 @@ const nearby = async (req, res) => {
   dataOfDealers.forEach(async (e) => {
     if (e["Lat"] && e["Long"]) {
       let nearer = await distance(pincode, e["Lat"], e["Long"]).then((dist) => {
-        // console.log('thenDist=',dist);
+        console.log('thenDist=',dist);
         if (dist <= radii) {
           // nearDealer.push(e);
 
           console.log(1, e.Lat);
           return e;
+        }else{
+          console.log(2, "Return e");
         }
-        console.log(2, "Return e");
+       
       });
       console.log(3, nearer.Lat);
       nearDealer.push(nearer);
-      // console.log(nearer);
+      console.log(3.1,nearer);
       console.log(31, nearDealer.length);
       // return nearDealer;
     }
@@ -326,8 +328,9 @@ const nearby = async (req, res) => {
   setTimeout(async () => {
     console.log(4, nearDealer.length);
     nearDealer.forEach((e) => {
+      console.log(e._id)
       newArr.push(e._id);
-    });
+    },1000);
     const dealerFilters = await getAllDealers2(req);
     var perPage = 8;
     var pageN = req.query.pageN || 1;
@@ -367,7 +370,7 @@ const nearby = async (req, res) => {
 };
 const distance = async (pincode, lat, lng) => {
   const location = await fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${pincode}&key=${process.env.GOOGLE_API}`
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${pincode}&key=AIzaSyAf_5lVGHvMEcsI3cRzIyrz9AxqaFtaEQk`
   )
     .then((result) => result.text())
     .then((text) => {
